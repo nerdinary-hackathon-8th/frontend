@@ -1,50 +1,53 @@
-// src/controllers/api.ts
+import type { ReissueResponse, JoinRequest, JoinResponse, getFoodResponse } from './api.Prop';
 
-const API_BASE_URL = 'https://goodluckynews.store';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const jsonHeaders = {
+	'Content-Type': 'application/json',
+};
 
-interface JoinRequest {
-	email: string;
-	password: string;
-}
+async function customFetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
+	const accessToken = localStorage.getItem('accessToken');
+	const headers = {
+		...jsonHeaders,
+		Authorization: `Bearer ${accessToken}`,
+		...(init?.headers || {}),
+	};
 
-interface JoinResponse {
-	accessToken: string;
-	refreshToken: string;
-}
+	const response = await fetch(input, { ...init, headers });
 
-interface ReissueRequest {
-	refreshToken: string;
-}
+	if (response.status === 401) {
+		// try reissue
+		const refreshToken = localStorage.getItem('refreshToken');
+		if (!refreshToken) throw new Error('No refresh token');
 
-interface ReissueResponse {
-	accessToken: string;
-	refreshToken: string;
-}
+		const reissueResponse = await fetch(`${API_BASE_URL}/api/auth/reissue`, {
+			method: 'POST',
+			headers: jsonHeaders,
+			body: JSON.stringify({ refreshToken }),
+		});
 
-export const reissue = async (data: ReissueRequest): Promise<ReissueResponse> => {
-	const response = await fetch(`${API_BASE_URL}/api/auth/reissue`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(data),
-	});
+		if (!reissueResponse.ok) throw new Error('Token reissue failed');
 
-	if (!response.ok) {
-		const errorText = await response.text();
-		throw new Error(`로그인 실패: ${errorText}`);
+		const tokens: ReissueResponse = await reissueResponse.json();
+		localStorage.setItem('accessToken', tokens.accessToken);
+		localStorage.setItem('refreshToken', tokens.refreshToken);
+
+		const retryHeaders = {
+			...jsonHeaders,
+			Authorization: `Bearer ${tokens.accessToken}`,
+			...(init?.headers || {}),
+		};
+
+		return fetch(input, { ...init, headers: retryHeaders });
 	}
 
-	const result = await response.json();
-	return result;
-};
+	return response;
+}
 
 export const login = async (data: JoinRequest): Promise<JoinResponse> => {
 	const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
 		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
+		headers: jsonHeaders,
 		body: JSON.stringify(data),
 	});
 
@@ -60,9 +63,7 @@ export const login = async (data: JoinRequest): Promise<JoinResponse> => {
 export const join = async (data: JoinRequest): Promise<JoinResponse> => {
 	const response = await fetch(`${API_BASE_URL}/api/auth/join`, {
 		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
+		headers: jsonHeaders,
 		body: JSON.stringify(data),
 	});
 
@@ -73,4 +74,17 @@ export const join = async (data: JoinRequest): Promise<JoinResponse> => {
 
 	const result = await response.json();
 	return result;
+};
+
+export const getFoods = async (): Promise<getFoodResponse[]> => {
+	const response = await customFetch(`${API_BASE_URL}/api/foods`, {
+		method: 'GET',
+	});
+
+	if (!response.ok) {
+		const errorText = await response.text();
+		throw new Error(` 실패: ${errorText}`);
+	}
+
+	return response.json();
 };
