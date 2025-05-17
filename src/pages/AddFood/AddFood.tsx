@@ -10,6 +10,9 @@ const Page = styled.div`
     left: 0;
     right: 0;
     width: 100%;
+    /* padding-left: 20px;
+    padding-right: 20px; */
+
 `;
 
 const Header = styled.div`
@@ -17,7 +20,7 @@ const Header = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    height: 140px;
+    height: 120px;
     color: white;
     font-weight: 600;
     font-size: 18px;
@@ -45,20 +48,22 @@ const BackButton = styled.img`
     position: absolute;
     left: 20px;
     height: 20px;
+    margin-bottom: 10px;
     cursor: pointer;
 `;
 
 const Title = styled.div`
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 900;
     color: white;
-    /* 가운데 정렬은 flex의 justify-content: center에서 처리 */
+    margin-bottom: 10px;
 `;
 
 const Icon = styled.img`
     position: absolute;
-    left: 50px;
-    width: 330px;
+    left: 0px;
+    top: -20px;
+    width: 390px;
 `;
 
 const AddFood = () => {

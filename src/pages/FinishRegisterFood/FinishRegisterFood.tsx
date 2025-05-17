@@ -1,22 +1,25 @@
-import NNangGGom from "../../assets/nnangGGom.png";
+import NNangGGom from "../../assets/addfood/NGE.png";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 const Page = styled.div`
     display: flex;
     height: 100vh;
-    padding-top: 50px;
+    padding-top: 30px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+    background-color: #f8f8f8;
 `;
 const Image = styled.img`
-    width: 252px;
+    width: 430px;
+    margin-right: 80px;
 `;
 
 const Title = styled.p`
     font-weight: 700;
-    font-size: 28px;
+    font-size: 30px;
     margin: 0 0 12px 0;
     color: black;
 `;
@@ -29,7 +32,7 @@ const Subtitle = styled.p`
     font-weight: 500;
     font-size: 16px;
     color: #6b6b6b;
-    margin: 0 0 24px 0;
+    margin: 0 0 -40px 0;
     text-align: center;
     line-height: 1.5;
 `;
@@ -50,7 +53,7 @@ const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     padding: 20px;
-    margin-top: 110px;
+    margin-top: 0px;
 `;
 
 export default function FinishRegisterFood() {

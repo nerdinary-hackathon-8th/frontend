@@ -49,7 +49,7 @@ const Title = styled.p`
     top: 20px;
     color: white;
     width: 100%;
-    font-size: 18px;
+    font-size: px;
     font-weight: 900;
 `;
 
