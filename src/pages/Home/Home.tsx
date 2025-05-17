@@ -49,7 +49,11 @@ const Home = () => {
                     </StrongText>
                 </LeftText>
                 <CharacterCircle>
-                    <StyledProfile onClick={() => navigate("/fridge-management")} />
+                    <StyledProfile
+                        onClick={() =>
+                            navigate("/fridge-management", { state: randomRecommendation })
+                        }
+                    />
                 </CharacterCircle>
             </Header>
             <RecommendationCard>
