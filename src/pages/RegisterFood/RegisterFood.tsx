@@ -10,14 +10,17 @@ import BackButtonImg from "../../assets/back.png";
 const Page = styled.div`
     width: 100%;
     position: fixed;
+    overflow-y: auto;
     top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    overflow-y: auto;
 `;
 
 const Divider = styled.div`
     border-bottom: 1.5px solid #f2f2f2;
-    margin: 10px;
+    margin: 20px;
 `;
 
 const Header = styled.div`
@@ -55,8 +58,8 @@ const Title = styled.p`
 
 const Image = styled.img`
     margin-bottom: 0px;
-    width: 200px;
-    margin-top: 50px;
+    width: 240px;
+    margin-top: 80px;
 `;
 const DateWrapper = styled.div`
     display: flex;
@@ -69,14 +72,14 @@ const DateWrapper = styled.div`
 const RegisterButton = styled.button`
     background-color: #00a400;
     font-size: 17px;
-    width: 320px;
-    margin-left: 20px;
-    margin-right: 20px;
+    font-weight: bold;
+    width: 100%;
     padding: 18px;
     border-radius: 10px;
     color: white;
     border: none;
     margin-top: 25px;
+    margin-bottom: 20px;
 `;
 
 export default function RegisterFood() {
@@ -108,7 +111,7 @@ export default function RegisterFood() {
                 <Image src={icon} />
             </Header>
             <FoodName onChange={(e) => setFoodName(e.target.value)} />
-            <Divider />
+            <Divider style={{ marginTop: "20px", marginBottom:"10px" }} />
             <DateWrapper>
                 <DateSelect
                     label="구매일"
@@ -128,11 +131,14 @@ export default function RegisterFood() {
                     placeholder={"(구)유통기한을 입력해요."}
                 />
             </DateWrapper>
+            <Divider style={{ marginTop: "15px" }} />
             <StorageSelector onChange={handleStorageChange} />
             {/* TODO : 입력 완료 체크 */}
-            <RegisterButton onClick={() => navigate("/finish-register-food")}>
-                음식 추가
-            </RegisterButton>
+            <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "5px" }}>
+                <RegisterButton onClick={() => navigate("/finish-register-food")}>
+                    음식 추가
+                </RegisterButton>
+            </div>
         </Page>
     );
 }

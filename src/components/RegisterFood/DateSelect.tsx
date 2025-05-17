@@ -29,30 +29,30 @@ const InputWrapper = styled.div`
 `;
 
 const DateInput = styled.input`
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  text-align: center;
-  width: 140px;
-  
-  &::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-  }
-  
-  /* 날짜 구분자를 점에서 하이픈으로 변경하는 스타일 */
-  /* 참고: 이 방법은 브라우저에 따라 작동하지 않을 수 있음 */
-  &::-webkit-datetime-edit-text {
-    content: "-";
-  }
-  
-  /* 밑줄 추가 */
-  &::-webkit-datetime-edit-year-field,
-  &::-webkit-datetime-edit-month-field,
-  &::-webkit-datetime-edit-day-field {
-    text-decoration: underline;
-  }
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    text-align: center;
+    width: 140px;
+
+    &::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+
+    /* 날짜 구분자를 점에서 하이픈으로 변경하는 스타일 */
+    /* 참고: 이 방법은 브라우저에 따라 작동하지 않을 수 있음 */
+    &::-webkit-datetime-edit-text {
+        content: "-";
+    }
+
+    /* 밑줄 추가 */
+    &::-webkit-datetime-edit-year-field,
+    &::-webkit-datetime-edit-month-field,
+    &::-webkit-datetime-edit-day-field {
+        text-decoration: underline;
+    }
 `;
 
 const CalendarIcon = styled.img`
@@ -69,12 +69,23 @@ const CalendarIcon = styled.img`
 const CheckboxWrapper = styled.label`
     display: flex;
     align-items: center;
+    margin-top: 5px;
     gap: 6px;
     font-size: 11px;
     font-weight: 500;
     color: #444;
     cursor: pointer;
     user-select: none;
+
+    input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+        background-color: #00a400;
+        accent-color: #00a400;
+        cursor: pointer;
+        border-radius: 3px;
+        border: 1px solid #00a400;
+    }
 `;
 
 interface DateSelect {
@@ -148,7 +159,6 @@ export default function DateSelect({
         </Container>
     );
 }
-
 
 // import styled from "@emotion/styled";
 // import { useEffect, useRef } from "react";

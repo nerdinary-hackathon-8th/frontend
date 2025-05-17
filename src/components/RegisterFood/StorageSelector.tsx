@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const Container = styled.div`
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 10px;
+    padding-top: 2px;
 `;
 
 const Title = styled.p`
@@ -12,10 +12,12 @@ const Title = styled.p`
     color: #1a1a1a;
     font-size: 15px;
     margin-bottom: 18px;
+    margin-top: 0px;
 `;
 
 const ButtonContainer = styled.div`
     display: flex;
+    width: 100%;
     gap: 12px;
     flex-direction: row;
     justify-content: center;
@@ -24,7 +26,7 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button<{ selected: boolean }>`
     padding: 8px 24px;
-    width: 97px;
+    width: 100%;
     border-radius: 15px;
     border: 1.5px solid #959595;
     background-color: ${({ selected }) => (selected ? "#def2de" : "white")};

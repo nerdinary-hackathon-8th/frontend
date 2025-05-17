@@ -1,11 +1,13 @@
-import NNangGGom from "../../assets/addfood/NGE.png";
+import NNangGGom from "../../assets/nnangGGom.png";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 const Page = styled.div`
     display: flex;
-    height: 100vh;
-    padding-top: 30px;
+    height: 100%;
+    padding-top: 120px;
+    padding-left: 20px;
+    padding-right: 20px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -29,20 +31,22 @@ const Highlight = styled.span`
 `;
 
 const Subtitle = styled.p`
+    padding-top: 10px;
     font-weight: 500;
     font-size: 16px;
     color: #6b6b6b;
     margin: 0 0 -40px 0;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.4;
 `;
 
 const Button = styled.button`
-    width: 153px;
+    flex: 1;
+    width: 100%;
     padding: 15px;
-    margin-left: 10px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
+    letter-spacing: -1.5%;
     background-color: #00a400;
     border-radius: 10px;
     color: white;
@@ -52,8 +56,9 @@ const Button = styled.button`
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 20px;
-    margin-top: 0px;
+    width: 100%;
+    gap: 13px;
+    margin-top: 30px;
 `;
 
 export default function FinishRegisterFood() {
@@ -62,7 +67,7 @@ export default function FinishRegisterFood() {
     return (
         <Page>
             <Title>
-                음식이 <Highlight>추가</Highlight> 되었어요
+                식품이 <Highlight>추가</Highlight> 되었어요
             </Title>
             <Subtitle>
                 냉꼼이가 이제부터
