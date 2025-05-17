@@ -17,7 +17,7 @@ const ImageWrapper = styled.div`
     width: 80px;
     height: 80px;
     border-radius: 20px;
-    background-color: #f0f0f0; /* 연한 회색 배경 */
+    background-color: #f0f0f0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,15 +29,6 @@ const Img = styled.img`
     height: 50px;
 `;
 
-// const Label = styled.label`
-//   width: 100%;
-//   font-weight: 700;
-//   font-size: 18px;
-//   margin-bottom: 0.5rem;
-//   color: black;
-//   align-self: flex-start;
-// `;
-
 const Input = styled.input`
     width: 100%;
     height: 44px;
@@ -46,7 +37,7 @@ const Input = styled.input`
     background-color: #f5f5f5;
     padding: 0 1rem;
     font-size: 14px;
-    color: #999;
+    color: black;
     box-sizing: border-box;
 
     &::placeholder {
