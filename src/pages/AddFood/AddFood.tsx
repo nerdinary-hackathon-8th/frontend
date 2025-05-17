@@ -10,9 +10,6 @@ const Page = styled.div`
     left: 0;
     right: 0;
     width: 100%;
-    /* padding-left: 20px;
-    padding-right: 20px; */
-
 `;
 
 const Header = styled.div`
@@ -50,6 +47,7 @@ const BackButton = styled.img`
     height: 20px;
     margin-bottom: 10px;
     cursor: pointer;
+    z-index: 100;
 `;
 
 const Title = styled.div`
@@ -82,6 +80,5 @@ const AddFood = () => {
         </Page>
     );
 };
-
 
 export default AddFood;
