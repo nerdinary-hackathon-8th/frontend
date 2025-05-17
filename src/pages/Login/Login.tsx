@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import LogoSVG from '@assets/logo.svg?react';
+import { theme } from '@styles/themes';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -11,8 +12,9 @@ const Login = () => {
 		<Container>
 			<LoginBox>
 				<SubText>
-					냉장고 관리,
-					<br /> 냉꼼이가 쉽게 도와줄게요!
+					냉장고 관리
+					<br />
+					<span className="highlight">냉꼼이</span>가 쉽게 도와줄게요!
 				</SubText>
 				<LogoSVG />
 				<LoginButton onClick={handleLogin}>로그인/회원가입</LoginButton>
@@ -63,6 +65,14 @@ const SubText = styled.h2`
 	margin-top: 12px;
 	color: black;
 	text-align: center;
+	font-size: 20px;
+	font-weight: 800;
+	line-height: 1.4;
+
+	.highlight {
+		color: ${theme.colors.main};
+		display: inline;
+	}
 `;
 
 const Footer = styled.div`
