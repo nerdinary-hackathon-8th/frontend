@@ -205,7 +205,7 @@ const MyFridge = () => {
 										</CheckContainer>
 									</CardHeader>
 									<Expiry>소비기한 : {item.expirationDate} </Expiry>
-									<Countdown imminent={dayLeft > -7}>{displayDday}</Countdown>
+									<Countdown imminent={dayLeft >= -7}>{displayDday}</Countdown>
 								</ItemCard>
 							);
 						})}
