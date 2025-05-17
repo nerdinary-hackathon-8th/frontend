@@ -1,9 +1,27 @@
+import { useMemo } from 'react';
 import styled from '@emotion/styled';
 import MyFridge from '../../components/MyFridge/MyFridge';
 import ProfileSVG from '@assets/profile.svg?react';
 import SpeedSVG from '@assets/speed.svg?react';
+import FloatingButtonSVG from '@assets/floatingButton.svg?react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+	const navigate = useNavigate();
+	const handleButtonClick = () => {
+		navigate('/addfood');
+	};
+	const recommendations = [
+		'두부는 3일 안에 소비해야 탄소를 줄일 수 있어요.',
+		'채소는 일주일 안에 다 먹으면 탄소 낭비가 없어요.',
+		'냉장고 속 재료 1개 소비 = 플라스틱 컵 2개 절약!',
+		'냉동실 털기 = 숨은 탄소 줄이기!',
+	];
+
+	const randomRecommendation = useMemo(() => {
+		return recommendations[Math.floor(Math.random() * recommendations.length)];
+	}, []);
+
 	return (
 		<Container>
 			<Header>
@@ -26,9 +44,10 @@ const Home = () => {
 				<RecommendationTitle>
 					<SpeedSVG /> 오늘의 탄소 배출 습관 추천
 				</RecommendationTitle>
-				<RecommendationText>먹다 남긴 반찬, 다음 날 안 먹으면 그대로 폐기하기</RecommendationText>
+				<RecommendationText>{randomRecommendation}</RecommendationText>
 			</RecommendationCard>
 			<MyFridge />
+			<FloatingButton onClick={handleButtonClick} />
 		</Container>
 	);
 };
@@ -104,4 +123,10 @@ const RecommendationTitle = styled.div`
 const RecommendationText = styled.div`
 	font-size: 14px;
 	color: #333;
+`;
+
+const FloatingButton = styled(FloatingButtonSVG)`
+	position: fixed;
+	right: 24px;
+	bottom: 24px;
 `;
