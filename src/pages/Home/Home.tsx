@@ -88,7 +88,7 @@ const LogoutButton = styled.button`
 `;
 
 const Header = styled.div`
-	padding: 24px 16px 8px;
+	padding: 24px 16px 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -97,37 +97,39 @@ const Header = styled.div`
 const LeftText = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 11px;
 	color: white;
 `;
 
 const BoldText = styled.div`
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: bold;
+	line-sp
 `;
 
 const RegularText = styled.div`
-	font-size: 10px;
+	font-size: 11px;
 	line-height: 1.4;
 `;
 const StrongText = styled.div`
 	font-size: 14px;
 	font-weight: 700;
 	line-height: 1.4;
+	margin-top: 5px;
 `;
 const CharacterCircle = styled.div`
-	width: 151px;
-	height: 120px;
+	width: auto;
+	height: 24vh;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
-	margin-top: 12px;
-	padding-top: 24px;
+	padding-top: 4vh;
+	min-height: 100px;
 `;
 
 const StyledProfile = styled(profileSVG)`
-	width: 120%;
+	width: 150%;
 	height: auto;
 	object-fit: contain;
 `;
@@ -135,8 +137,8 @@ const StyledProfile = styled(profileSVG)`
 const RecommendationCard = styled.div`
 	background-color: white;
 	border-radius: 16px;
-	padding: 16px;
-	margin: 0 16px 16px 16px;
+	padding: 10px;
+	margin: 0 20px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 `;
 
@@ -151,7 +153,7 @@ const RecommendationTitle = styled.div`
 `;
 
 const RecommendationText = styled.div`
-	font-size: 14px;
+	font-size: 13px;
 	color: #333;
 `;
 
