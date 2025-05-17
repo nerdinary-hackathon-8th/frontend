@@ -115,6 +115,6 @@ export const consumeFood = async (foodName: number): Promise<void> => {
 
 	if (!response.ok) {
 		const errorText = await response.text();
-		throw new Error(`음식 소비 실패: ${errorText}`);
+		throw new Error(`식품 소비 실패: ${errorText}`);
 	}
 };

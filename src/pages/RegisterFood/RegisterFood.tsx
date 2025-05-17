@@ -138,7 +138,7 @@ export default function RegisterFood() {
 			<StorageSelector onChange={handleStorageChange} category={category} />
 			{/* TODO : 입력 완료 체크 */}
 			<div style={{ paddingLeft: '20px', paddingRight: '20px', paddingTop: '5px' }}>
-				<RegisterButton onClick={() => navigate('/finish-register-food')}>음식 추가</RegisterButton>
+				<RegisterButton onClick={() => navigate('/finish-register-food')}>식품 추가</RegisterButton>
 			</div>
 		</Page>
 	);
