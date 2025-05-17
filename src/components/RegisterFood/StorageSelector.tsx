@@ -48,7 +48,7 @@ const options = [
 ];
 
 interface StorageSelectorProps {
-    onChange?: (value: number) => void;
+    onChange?: (value: string) => void;
 }
 
 export default function StorageSelector({ onChange }: StorageSelectorProps) {
@@ -57,7 +57,7 @@ export default function StorageSelector({ onChange }: StorageSelectorProps) {
     useEffect(() => {
         const selectedOption = options.find((opt) => opt.label === selected);
         if (selectedOption && onChange) {
-            onChange(selectedOption.value);
+            onChange(selectedOption.label);
         }
     }, [selected, onChange]);
 

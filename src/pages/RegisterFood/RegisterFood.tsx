@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import FoodName from "../../components/RegisterFood/FoodName";
 import { useState } from "react";
 import DateSelect from "../../components/RegisterFood/DateSelect";
@@ -91,22 +91,21 @@ const RegisterButton = styled.button`
 `;
 
 export default function RegisterFood() {
-    const { id } = useParams<{ id: string }>();
-    console.log(id);
     const navigate = useNavigate();
 
     const location = useLocation();
-    const { name, icon } = location.state as { name: string; icon: string };
+    const { category, icon } = location.state as { category: string; icon: string };
 
     const [foodName, setFoodName] = useState<string>("");
     const [purchaseDate, setPurchaseDate] = useState<string>("");
-    const [expiryDate, setExpiryDate] = useState<string>("");
+    const [expirationDate, setExpirationDate] = useState<string | null>(null);
     const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
+    const [storageMethod, setStorageMethod] = useState<string>("");
 
-    console.log(foodName);
+    console.log(foodName, category, purchaseDate, expirationDate, storageMethod);
 
-    const handleStorageChange = (value: number) => {
-        console.log("보관 id값:", value);
+    const handleStorageChange = (value: string) => {
+        setStorageMethod(value);
     };
 
     return (
@@ -114,7 +113,7 @@ export default function RegisterFood() {
             <Header>
                 <Title>
                     <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
-                    {name}
+                    {category}
                     <Icon src={Bubble} />
                 </Title>
                 <Image src={icon} />
@@ -131,8 +130,8 @@ export default function RegisterFood() {
 
                 <DateSelect
                     label="소비기한"
-                    dateValue={expiryDate}
-                    onDateChange={setExpiryDate}
+                    dateValue={expirationDate ?? ""}
+                    onDateChange={setExpirationDate}
                     showCheckbox={true}
                     checkboxLabel="소비기한이 안적혀있어요."
                     checkboxChecked={isExpiryUnknown}

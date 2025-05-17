@@ -14,6 +14,11 @@ import EasyFood from "../../assets/addfood/간편식·밀키트_투명.png";
 import NotHealthyFood from "../../assets/addfood/가공식품_투명.png";
 import HealthyFood from "../../assets/addfood/건강식품_투명.png";
 
+// interface FoodListProps {
+//     selectedCategory: string | null;
+//     onSelect: (id: string) => void;
+// }
+
 export default function FoodList() {
     const navigate = useNavigate();
     const [currentId] = useState<number | null>(null);
@@ -49,7 +54,7 @@ export default function FoodList() {
                             isSelected={card.id === currentId}
                             onClick={() => {
                                 navigate(`/register-food/${card.id}`, {
-                                    state: { name: card.name, icon: card.icon },
+                                    state: { category: card.name, icon: card.icon },
                                 });
                             }}
                         />
