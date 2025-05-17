@@ -1,7 +1,7 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import styled from "@emotion/styled";
 import FoodExample from "../../assets/foodExample.png";
-
-const FoodBox = styled.div`
+const FoodBox = styled.div `
     width: 98px;
     height: 91px;
     border-radius: 10px;
@@ -14,8 +14,7 @@ const FoodBox = styled.div`
     padding: 8px 0;
     background-color: gra;
 `;
-
-const FoodImage = styled.img`
+const FoodImage = styled.img `
     width: 45px;
     height: 45px;
     background-color: gray;
@@ -23,27 +22,11 @@ const FoodImage = styled.img`
     object-fit: cover;
     margin-bottom: 8px;
 `;
-
-const FoodName = styled.p`
+const FoodName = styled.p `
     font-size: 13px;
     color: black;
     margin: 0;
 `;
-
-interface FoodCardProps {
-    id: number;
-    name: string;
-    icon: string;
-    isSelected: boolean;
-    onClick: () => void;
-}
-
-export default function FoodCard({ id, name, icon, isSelected, onClick }: FoodCardProps) {
-    console.log(id, icon, isSelected);
-    return (
-        <FoodBox onClick={onClick}>
-            <FoodImage src={FoodExample} />
-            <FoodName>{name}</FoodName>
-        </FoodBox>
-    );
+export default function FoodCard({ id, name, icon, isSelected, onClick }) {
+    return (_jsxs(FoodBox, { onClick: onClick, children: [_jsx(FoodImage, { src: FoodExample }), _jsx(FoodName, { children: name })] }));
 }
