@@ -39,7 +39,7 @@ interface FoodCardProps {
 }
 
 export default function FoodCard({ id, name, icon, isSelected, onClick }: FoodCardProps) {
-    console.log(id, icon, isSelected)
+    console.log(id, icon, isSelected);
     return (
         <FoodBox onClick={onClick}>
             <FoodImage src={FoodExample} />
