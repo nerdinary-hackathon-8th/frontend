@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import styled from '@emotion/styled';
-import MyFridge from '../../components/MyFridge/MyFridge';
+import MyFridge from '@components/MyFridge/MyFridge';
 
 import SpeedSVG from '@assets/speed.svg?react';
 import FloatingButtonSVG from '@assets/floatingButton.svg?react';
@@ -8,6 +8,7 @@ import backgroundImage from '@assets/homeBackScreen.png';
 import profileSVG from '@assets/profile.svg?react';
 
 import { useNavigate } from 'react-router-dom';
+import { theme } from '@styles/themes';
 
 const recommendations = [
 	'냉장고 속 반찬 1개만 꺼내 먹기',
@@ -77,8 +78,8 @@ const LogoutButton = styled.button`
 	top: 16px;
 	right: 16px;
 	background-color: white;
-	color: #00a000;
-	border: 2px solid #00a000;
+	color: ${theme.colors.main};
+	border: 2px solid ${theme.colors.main};
 	border-radius: 20px;
 	padding: 4px 12px;
 	font-size: 12px;
@@ -146,7 +147,7 @@ const RecommendationTitle = styled.div`
 	font-weight: bold;
 	margin-bottom: 8px;
 	font-size: 16px;
-	color: #00a400;
+	color: ${theme.colors.main};
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -159,6 +160,6 @@ const RecommendationText = styled.div`
 
 const FloatingButton = styled(FloatingButtonSVG)`
 	position: fixed;
-	right: 20px;
-	bottom: 20px;
+	right: 15px;
+	bottom: 15px;
 `;
