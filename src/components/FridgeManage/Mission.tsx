@@ -53,7 +53,7 @@ interface MissionProps {
 export default function Mission({ text }: MissionProps) {
     return (
         <Wrapper>
-            <Title>오늘의 탄소 배출 줄이기 미션은 어때요?</Title>
+            <Title>오늘의 탄소 줄이기 미션 함께하실래요?</Title>
             <Subtitle>완료하면, 탄소 배출을 평균 탄소 0.25kg 절감해요</Subtitle>
             {/* TODO props 로 미션 받고 렌더링 */}
             <Button>{text}</Button>
