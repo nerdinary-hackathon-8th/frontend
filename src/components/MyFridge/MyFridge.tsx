@@ -35,7 +35,7 @@ type Item = {
 	foodName: string;
 	foodCategory: string;
 	expirationDate: string;
-	storageMethod?: string;
+	storageMethod: string;
 	daysLeft: number;
 };
 
@@ -193,7 +193,7 @@ const MyFridge = () => {
 											<CheckSVG width={18} />
 										</CheckContainer>
 									</CardHeader>
-									<Expiry>소비기한 : {item.expirationDate}</Expiry>
+									<Expiry>소비기한 : {item.expirationDate || Date()} </Expiry>
 									<Countdown imminent={item.daysLeft >= -7}>{displayDday}</Countdown>
 								</ItemCard>
 							);
