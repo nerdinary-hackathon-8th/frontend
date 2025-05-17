@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import FridgeSVG from '@assets/Refrigenerator.svg?react';
 import CheckSVG from '@assets/check.svg?react';
 import CarrotSVG from '@assets/carrot.svg?react';
+import SearchSVG from '@assets/search.svg?react';
 
 type Item = {
 	foodName: string;
@@ -103,18 +104,23 @@ const MyFridge = () => {
 					<FridgeIcon />
 					<TitleText>나만의 냉장고</TitleText>
 				</Header>
-				<SearchInput type="text" placeholder="냉장고에 저장된 식품을 검색해보세요" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+				<SearchWrapper>
+					<StyledSearchInput type="text" placeholder="냉장고에 저장된 식품을 검색해보세요" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+					<StyledSearchIcon />
+				</SearchWrapper>
 				<TabList>
-					<TabButtons>
-						{['전체', '실외', '냉장', '냉동'].map((tab) => (
-							<Tab key={tab} active={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
-								{tab}
-							</Tab>
-						))}
-					</TabButtons>
-					<FilterButton active={showOnlyExpiring} onClick={() => setShowOnlyExpiring((prev) => !prev)}>
-						소비기한임박
-					</FilterButton>
+					<TabRow>
+						<TabButtons>
+							{['전체', '실외', '냉장', '냉동'].map((tab) => (
+								<Tab key={tab} active={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
+									{tab}
+								</Tab>
+							))}
+						</TabButtons>
+						<FilterButton active={showOnlyExpiring} onClick={() => setShowOnlyExpiring((prev) => !prev)}>
+							소비기한임박
+						</FilterButton>
+					</TabRow>
 				</TabList>
 				<Grid>
 					{items
@@ -161,10 +167,9 @@ const DraggableContainer = styled.div<{ expanded: boolean }>`
 	background-color: #fff;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
-	box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 	transition: height 0.3s ease;
 	overflow: hidden;
-	padding: 12px 0 0 0;
+	padding: 8x 0 0 0;
 `;
 
 const TopBar = styled.div`
@@ -178,7 +183,6 @@ const TopBar = styled.div`
 const ScrollContainer = styled.div`
 	height: 100%;
 	overflow-y: auto;
-	padding: 12px;
 `;
 
 const ItemCard = styled.div`
@@ -186,7 +190,6 @@ const ItemCard = styled.div`
 	border: 1px solid #ccc;
 	border-radius: 12px;
 	padding: 12px 12px;
-	margin-bottom: 12px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 	position: relative;
 `;
@@ -207,44 +210,74 @@ const Countdown = styled.div<{ imminent: boolean }>`
 	color: ${({ imminent }) => (imminent ? '#ff703c' : '#00A400')};
 	font-weight: bold;
 	text-align: right;
+	margin-top: 12px;
 `;
 
 const Tab = styled.div<{ active: boolean }>`
 	font-weight: ${({ active }) => (active ? '700' : '400')};
 	color: ${({ active }) => (active ? '#00a000' : '#d1d1d1')};
-
+	font-size: ${({ active }) => (active ? '16px' : '15px')};
 	border-bottom: 2px solid ${({ active }) => (active ? '#00a000' : 'transparent')};
-	padding: 8px 0px;
+	padding-top: 16px;
 	cursor: pointer;
 `;
 
 const TabList = styled.div`
+	margin: 8px 16px;
+	display: flex;
+	flex-direction: column;
+`;
+
+const TabRow = styled.div`
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	margin: 8px 16px;
+	align-items: flex-end;
+	width: 100%;
 `;
 
 const TabButtons = styled.div`
 	display: flex;
-	gap: 10px;
+	gap: 16px;
 `;
 
-const SearchInput = styled.input`
-	margin: 0 16px;
+const SearchWrapper = styled.div`
+	position: relative;
+	margin: 0 16px 12px;
+`;
+
+const StyledSearchIcon = styled(SearchSVG)`
+	position: absolute;
+	top: 50%;
+	right: 16px;
+	transform: translateY(-50%);
+	width: 16px;
+	height: 16px;
+	stroke: none;
+`;
+
+const StyledSearchInput = styled.input`
 	padding: 12px 16px;
-	width: calc(100% - 32px);
+	width: 100%;
 	border-radius: 12px;
-	border: 1px solid #ccc;
-	font-size: 14px;
+	border: 1px solid #c1c1c1;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 15px;
+	color: #c5c5c5;
 	box-sizing: border-box;
+	background-color: #eee;
+
+	&::placeholder {
+		color: #c5c5c5;
+	}
 `;
 
 const Grid = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 12px;
-	padding: 0 16px 16px;
+	padding: 12px 20px 16px;
 `;
 
 const CardHeader = styled.div`
@@ -289,8 +322,8 @@ const FilterButton = styled.button<{ active: boolean }>`
 const Header = styled.div`
 	display: flex;
 	align-items: center;
-	gap: 8px;
-	padding: 12px;
+	gap: 2px;
+	padding: 12px 12px 0 12px;
 `;
 
 const FridgeIcon = styled(FridgeSVG)`
@@ -299,7 +332,6 @@ const FridgeIcon = styled(FridgeSVG)`
 `;
 
 const TitleText = styled.h2`
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: bold;
-	margin: 0;
 `;
