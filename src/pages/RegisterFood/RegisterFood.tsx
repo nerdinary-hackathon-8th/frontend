@@ -47,7 +47,7 @@ const BackButton = styled.img`
 const Title = styled.p`
     position: absolute;
     top: 20px;
-    color: black;
+    color: white;
     width: 100%;
     font-size: 18px;
     font-weight: 900;
@@ -56,6 +56,7 @@ const Title = styled.p`
 const Image = styled.img`
     margin-bottom: 0px;
     width: 200px;
+    margin-top: 50px;
 `;
 const DateWrapper = styled.div`
     display: flex;

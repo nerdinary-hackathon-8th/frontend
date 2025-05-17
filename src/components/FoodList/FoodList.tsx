@@ -2,17 +2,17 @@ import styles from "./FoodList.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FoodCard from "./FoodCard";
-import HaSanMull from "../../assets/addfood/해산물.png";
-import MeetAndEgg from "../../assets/addfood/축산·계란.png";
-import Vegetable from "../../assets/addfood/채소.png";
-import Milk from "../../assets/addfood/유제품.png";
-import Seasoning from "../../assets/addfood/조미료·향신료.png";
-import Cookie from "../../assets/addfood/과자·시리얼.png";
-import Fruit from "../../assets/addfood/과일.png";
-import Nuts from "../../assets/addfood/견과류.png";
-import EasyFood from "../../assets/addfood/간편식·밀키트.png";
-import NotHealthyFood from "../../assets/addfood/가공식품.png";
-import HealthyFood from "../../assets/addfood/건강식품.png";
+import HaSanMull from "../../assets/addfood/해산물_투명.png";
+import MeetAndEgg from "../../assets/addfood/축산·계란_투명.png";
+import Vegetable from "../../assets/addfood/채소_투명.png";
+import Milk from "../../assets/addfood/유제품_투명.png";
+import Seasoning from "../../assets/addfood/조미료·향신료_투명.png";
+import Cookie from "../../assets/addfood/과자·시리얼_투명.png";
+import Fruit from "../../assets/addfood/과일_투명.png";
+import Nuts from "../../assets/addfood/견과류_투명.png";
+import EasyFood from "../../assets/addfood/간편식·밀키트_투명.png";
+import NotHealthyFood from "../../assets/addfood/가공식품_투명.png";
+import HealthyFood from "../../assets/addfood/건강식품_투명.png";
 
 export default function FoodList() {
     const navigate = useNavigate();

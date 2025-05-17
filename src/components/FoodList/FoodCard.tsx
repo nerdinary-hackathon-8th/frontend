@@ -17,7 +17,7 @@ const FoodBox = styled.div`
 const FoodImage = styled.img`
     width: 60px;
     height: 60px;
-    background-color: gray;
+    background-color: white;
     border-radius: 4px;
     object-fit: cover;
     margin-bottom: 8px;
