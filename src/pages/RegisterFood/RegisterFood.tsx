@@ -44,6 +44,18 @@ const DateWrapper = styled.div`
     justify-content: center;
 `;
 
+const RegisterButton = styled.button`
+    background-color: #00a400;
+    font-size: 17px;
+    width: 320px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 18px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    margin-top: 25px;
+`
 
 export default function RegisterFood() {
     const { id } = useParams<{ id: string }>();
@@ -83,7 +95,7 @@ export default function RegisterFood() {
                 />
             </DateWrapper>
             <StorageSelector onChange={handleStorageChange} />
-            <button>음식 추가</button>
+            <RegisterButton>음식 추가</RegisterButton>
         </Page>
     );
 }
