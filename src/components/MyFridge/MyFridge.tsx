@@ -12,8 +12,9 @@ import MilkSVG from '@assets/foodCategories/milk.svg?react';
 import ProcessedFoodSVG from '@assets/foodCategories/processedFood.svg?react';
 import SnackSVG from '@assets/foodCategories/snack.svg?react';
 import VegetableSVG from '@assets/foodCategories/vegetable.svg?react';
-import { getFoods } from '@controllers/api';
+import { consumeFood, getFoods } from '@controllers/api';
 import { theme } from '@styles/themes';
+import type { getFoodResponse } from '@controllers/api.Prop';
 
 const iconMapper = (category: string): JSX.Element => {
 	const map: Record<string, JSX.Element> = {
@@ -31,86 +32,88 @@ const iconMapper = (category: string): JSX.Element => {
 	return map[category] || <VegetableSVG />;
 };
 
-type Item = {
-	foodName: string;
-	foodCategory: string;
-	expirationDate: string;
-	storageMethod: string;
-	daysLeft: number;
-};
-
-const mockItems: Item[] = [
-	{
-		foodName: '대파',
-		foodCategory: '채소',
-		expirationDate: '2025-05-17',
-		storageMethod: '실외',
-		daysLeft: 3,
-	},
-	{
-		foodName: '달걀',
-		foodCategory: '유제품',
-		expirationDate: '2025-06-10',
-		storageMethod: '실외',
-		daysLeft: 27,
-	},
-	{
-		foodName: '우유',
-		foodCategory: '유제품',
-		expirationDate: '2025-05-10',
-		storageMethod: '냉장',
-		daysLeft: -4,
-	},
-	{
-		foodName: '만두',
-		foodCategory: '가공식품',
-		expirationDate: '2025-05-31',
-		storageMethod: '냉동',
-		daysLeft: 17,
-	},
-	{
-		foodName: '소고기',
-		foodCategory: '육류',
-		expirationDate: '2025-05-25',
-		storageMethod: '냉동',
-		daysLeft: 11,
-	},
-	{
-		foodName: '연어',
-		foodCategory: '해산물',
-		expirationDate: '2025-05-19',
-		storageMethod: '냉장',
-		daysLeft: 5,
-	},
-	{
-		foodName: '사과',
-		foodCategory: '과일',
-		expirationDate: '2025-05-21',
-		storageMethod: '실외',
-		daysLeft: 7,
-	},
-	{
-		foodName: '케첩',
-		foodCategory: '조미료',
-		expirationDate: '2026-01-01',
-		storageMethod: '실외',
-		daysLeft: 229,
-	},
-	{
-		foodName: '샐러드 밀키트',
-		foodCategory: '밀키트',
-		expirationDate: '2025-05-15',
-		storageMethod: '냉장',
-		daysLeft: 1,
-	},
-	{
-		foodName: '스낵칩',
-		foodCategory: '과자',
-		expirationDate: '2025-08-10',
-		storageMethod: '실외',
-		daysLeft: 88,
-	},
-];
+// const mockItems: getFoodResponse[] = [
+// 	{
+// 		foodName: '대파',
+// 		foodCategory: '채소',
+// 		expirationDate: '2025-05-17',
+// 		storageMethod: '실외',
+// 		daysLeft: -3,
+// 		foodRegisterId: 1,
+// 	},
+// 	{
+// 		foodName: '달걀',
+// 		foodCategory: '유제품',
+// 		expirationDate: '2025-06-10',
+// 		storageMethod: '실외',
+// 		daysLeft: 27,
+// 		foodRegisterId: 2,
+// 	},
+// 	{
+// 		foodName: '우유',
+// 		foodCategory: '유제품',
+// 		expirationDate: '2025-05-10',
+// 		storageMethod: '냉장',
+// 		daysLeft: -4,
+// 		foodRegisterId: 3,
+// 	},
+// 	{
+// 		foodName: '만두',
+// 		foodCategory: '가공식품',
+// 		expirationDate: '2025-05-31',
+// 		storageMethod: '냉동',
+// 		daysLeft: 17,
+// 		foodRegisterId: 4,
+// 	},
+// 	{
+// 		foodName: '소고기',
+// 		foodCategory: '육류',
+// 		expirationDate: '2025-05-25',
+// 		storageMethod: '냉동',
+// 		daysLeft: 11,
+// 		foodRegisterId: 5,
+// 	},
+// 	{
+// 		foodName: '연어',
+// 		foodCategory: '해산물',
+// 		expirationDate: '2025-05-19',
+// 		storageMethod: '냉장',
+// 		daysLeft: 5,
+// 		foodRegisterId: 6,
+// 	},
+// 	{
+// 		foodName: '사과',
+// 		foodCategory: '과일',
+// 		expirationDate: '2025-05-21',
+// 		storageMethod: '실외',
+// 		daysLeft: 7,
+// 		foodRegisterId: 7,
+// 	},
+// 	{
+// 		foodName: '케첩',
+// 		foodCategory: '조미료',
+// 		expirationDate: '2026-01-01',
+// 		storageMethod: '실외',
+// 		daysLeft: 229,
+// 		foodRegisterId: 8,
+// 	},
+// 	{
+// 		foodName: '샐러드 밀키트',
+// 		foodCategory: '밀키트',
+// 		expirationDate: '2025-05-15',
+// 		storageMethod: '냉장',
+// 		daysLeft: 1,
+// 		foodRegisterId: 9,
+// 	},
+// 	{
+// 		foodName: '스낵칩',
+// 		foodCategory: '과자',
+// 		expirationDate: '2025-08-10',
+// 		storageMethod: '실외',
+// 		daysLeft: 88,
+// 		foodRegisterId: 10,
+// 	},
+// ];
 
 const MyFridge = () => {
 	const [expanded, setExpanded] = useState(false);
@@ -118,12 +121,13 @@ const MyFridge = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [showOnlyExpiring, setShowOnlyExpiring] = useState(false);
 	const startYRef = useRef<number | null>(null);
-	const [items, setItems] = useState<Item[]>([]);
+	const [items, setItems] = useState<getFoodResponse[]>([]);
 
 	useEffect(() => {
 		(async () => {
-			// const data = await getFoods();
-			const data = await mockItems;
+			const data = await getFoods();
+			// const data = await mockItems;
+			console.log(data);
 			setItems(data);
 		})();
 	}, []);
@@ -141,8 +145,9 @@ const MyFridge = () => {
 		startYRef.current = null;
 	};
 
-	const handleConsume = (index: number) => {
+	const handleConsume = (index: number, foodRegisterId: number) => {
 		setItems((prev) => prev.filter((_, i) => i !== index));
+		consumeFood(foodRegisterId);
 	};
 
 	return (
@@ -180,7 +185,8 @@ const MyFridge = () => {
 								(!showOnlyExpiring || item.daysLeft <= 7)
 						)
 						.map((item, idx) => {
-							const displayDday = item.daysLeft === 0 ? 'D-DAY' : `D${item.daysLeft > 0 ? `+${item.daysLeft}` : item.daysLeft}`;
+							const dayLeft = -item.daysLeft;
+							const displayDday = dayLeft === 0 ? 'D-DAY' : `D${dayLeft > 0 ? `+${dayLeft}` : dayLeft}`;
 
 							return (
 								<ItemCard key={idx}>
@@ -189,12 +195,12 @@ const MyFridge = () => {
 										<TitleContainer>
 											<Title>{item.foodName}</Title>
 										</TitleContainer>
-										<CheckContainer onClick={() => handleConsume(idx)}>
+										<CheckContainer onClick={() => handleConsume(idx, item.foodRegisterId)}>
 											<CheckSVG width={18} />
 										</CheckContainer>
 									</CardHeader>
-									<Expiry>소비기한 : {item.expirationDate || Date()} </Expiry>
-									<Countdown imminent={item.daysLeft >= -7}>{displayDday}</Countdown>
+									<Expiry>소비기한 : {item.expirationDate} </Expiry>
+									<Countdown imminent={dayLeft > -7}>{displayDday}</Countdown>
 								</ItemCard>
 							);
 						})}
