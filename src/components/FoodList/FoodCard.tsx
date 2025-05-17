@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import FoodExample from "../../assets/foodExample.png";
 
 const FoodBox = styled.div`
     width: 98px;
@@ -16,8 +15,8 @@ const FoodBox = styled.div`
 `;
 
 const FoodImage = styled.img`
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     background-color: gray;
     border-radius: 4px;
     object-fit: cover;
@@ -42,7 +41,7 @@ export default function FoodCard({ id, name, icon, isSelected, onClick }: FoodCa
     console.log(id, icon, isSelected);
     return (
         <FoodBox onClick={onClick}>
-            <FoodImage src={FoodExample} />
+            <FoodImage src={icon} />
             <FoodName>{name}</FoodName>
         </FoodBox>
     );

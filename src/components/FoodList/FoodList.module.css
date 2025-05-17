@@ -1,11 +1,14 @@
 .page {
     padding: 1rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
     position: fixed;
     background-color: white;
     border-radius: 20px 20px 0 0;
-    height: 576px;
+    /* height: 576px; */
+    top: 120px; 
     bottom: 0;
-    /* z-index: 100; */
 }
 
 .section {
@@ -14,9 +17,9 @@
 
 .gridView {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 4열 고정 */
-    gap: 1rem; /* 아이템 간격 */
-    justify-items: center; /* 아이템 중앙 정렬 */
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    gap: 16px;
+    padding: 16px;
 }
 
 .title {
