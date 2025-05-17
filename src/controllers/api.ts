@@ -129,7 +129,7 @@ export const consumeFood = async (foodRegisterId: number): Promise<void> => {
 };
 
 export const getMyMbti = async (): Promise<getMyMbtiResponse> => {
-    const response = await fetch(`${API_BASE_URL}/api/foods/rate`, {
+    const response = await customFetch(`${API_BASE_URL}/api/foods/rate`, {
         method: "GET",
     });
 

@@ -7,7 +7,7 @@ import SpendType from "@components/FridgeManage/SpendType";
 import { getMyMbti } from "@controllers/api";
 import type { getMyMbtiResponse } from "@controllers/api.Prop";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Page = styled.div`
     background-color: #f8f8f8;
@@ -49,7 +49,6 @@ const Divider = styled.div`
 `;
 
 const TextBox = styled.div`
-    gap: 4px;
     padding: 24px;
 `;
 const LastText = styled.p`
@@ -58,7 +57,7 @@ const LastText = styled.p`
     letter-spacing: -0.5%;
     display: flex;
     justify-content: center;
-    margin-bottom: 0px;
+    margin-bottom: 4px;
     margin-top: 0px;
 `;
 
@@ -67,6 +66,9 @@ export default function FridgeManagement() {
 
     const [data, setData] = useState<getMyMbtiResponse | null>(null);
     const [, setLoading] = useState(true);
+
+    const location = useLocation();
+    const text = location.state as { text: string };
 
     useEffect(() => {
         async function fetchMyMbti() {
@@ -82,18 +84,18 @@ export default function FridgeManagement() {
         }
         fetchMyMbti();
     }, []);
-
+    console.log(data);
     return (
         <Page>
             <Header>
                 <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
                 <Title>냉꼼이가 대신하는 냉장고 관리</Title>
             </Header>
-            <UseRatio consumptionRate={data?.consumptionRate ?? "00"} />
+            <UseRatio consumptionRate={(data?.consumptionRate ?? "0").replace("%", "")} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
-            <ExpiredProduct count={data?.nearExpiredCount || -1} />
+            <ExpiredProduct count={data?.nearExpiredCount || 0} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
-            <Mission />
+            <Mission text={text.text} />
             <div style={{ marginTop: "13px", marginBottom: "13px" }}></div>
             <SpendType level={data?.level || 0} mbti={data?.foodBTI || ""} />
             <TextBox>

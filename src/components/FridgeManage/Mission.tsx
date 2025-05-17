@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const Title = styled.h3`
     font-size: 17px;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     color: black;
     text-align: center;
     letter-spacing: -1.5%;
@@ -23,7 +23,7 @@ const Title = styled.h3`
 
 const Subtitle = styled.p`
     font-size: 11px;
-    font-weight: 500;
+    font-weight: medium;
     margin-bottom: 10px;
     color: #b0b0b0; /* 연한 회색 */
     text-align: center;
@@ -46,13 +46,16 @@ const Button = styled.button`
     letter-spacing: -2%;
 `;
 
-export default function Mission() {
+interface MissionProps {
+    text: string;
+}
+
+export default function Mission({ text }: MissionProps) {
     return (
         <Wrapper>
-            <Title>오늘의 탄소 배출 줄이기 미션은 어때요?</Title>
+            <Title>오늘의 탄소 줄이기 미션 함께하실래요?</Title>
             <Subtitle>완료하면, 탄소 배출을 평균 탄소 0.25kg 절감해요</Subtitle>
-            {/* TODO props 로 미션 받고 렌더링 */}
-            <Button>냉장고 속 반찬 1개 이상 꺼내 먹기</Button>
+            <Button>{text}</Button>
         </Wrapper>
     );
 }
