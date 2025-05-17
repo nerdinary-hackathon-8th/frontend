@@ -104,8 +104,6 @@ export default function RegisterFood() {
     const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
     const [storageMethod, setStorageMethod] = useState<string>("");
 
-    // console.log(foodName, category, purchaseDate, expirationDate, storageMethod);
-
     const data: RegisterFoodRequest = {
         foodName: foodName,
         foodCategory: category,
