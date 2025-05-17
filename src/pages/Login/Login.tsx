@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+	const navigate = useNavigate();
+	const handleLogin = () => {
+		navigate('/signup');
+	};
 	return (
 		<Container>
 			<LoginBox>
 				<ProfileCircle>로고</ProfileCircle>
-				<LoginButton>로그인/회원가입</LoginButton>
+				<LoginButton onClick={handleLogin}>로그인/회원가입</LoginButton>
 				<SubText>냉곰이 키우고, 냉장고도 관리하자!</SubText>
 				<Footer>탄소절감단체 너디너디8th Corp.</Footer>
 			</LoginBox>

@@ -3,9 +3,11 @@ import { createBrowserRouter } from 'react-router-dom';
 import Root from './Root';
 import Login from '../pages/Login/Login';
 import Home from '../pages/Home/Home';
+import Signup from '../pages/signup/signup';
 
 const webPath = {
 	login: () => '/login',
+	signup: () => '/signup',
 };
 
 const routes = [
@@ -18,6 +20,10 @@ const routes = [
 	{
 		path: webPath.login(),
 		element: <Login />,
+	},
+	{
+		path: webPath.signup(),
+		element: <Signup />,
 	},
 ];
 
