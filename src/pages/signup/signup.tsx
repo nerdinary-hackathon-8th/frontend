@@ -1,15 +1,24 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { login, join } from '../../controllers/api';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	const handleSubmit = async () => {
 		try {
-			await login({ email, password });
+			const res = await login({ email, password });
 			console.log('로그인 성공');
+
+			const accessToken = res.accessToken;
+			const refreshToken = res.refreshToken;
+
+			localStorage.setItem('accessToken', accessToken);
+			localStorage.setItem('accessToken', refreshToken);
+			navigate('/');
 		} catch (loginError) {
 			console.warn('로그인 실패:', loginError);
 			try {
@@ -20,6 +29,7 @@ const Signup = () => {
 
 				localStorage.setItem('accessToken', accessToken);
 				localStorage.setItem('accessToken', refreshToken);
+				navigate('/');
 			} catch (joinError) {
 				console.error('회원가입 실패:', joinError);
 			}
