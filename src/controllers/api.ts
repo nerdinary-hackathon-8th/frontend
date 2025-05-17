@@ -6,7 +6,7 @@ const jsonHeaders = {
 	credentials: 'include',
 };
 
-async function customFetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
+const customFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response> => {
 	const accessToken = localStorage.getItem('accessToken');
 	const headers = {
 		...jsonHeaders,
@@ -19,7 +19,6 @@ async function customFetch(input: RequestInfo, init?: RequestInit): Promise<Resp
 	if (response.status === 400) {
 		// try reissue
 		const refreshToken = localStorage.getItem('refreshToken');
-		if (!refreshToken) throw new Error('No refresh token');
 
 		const reissueResponse = await fetch(`${API_BASE_URL}/api/auth/reissue`, {
 			method: 'POST',
@@ -27,7 +26,7 @@ async function customFetch(input: RequestInfo, init?: RequestInit): Promise<Resp
 			body: JSON.stringify({ refreshToken }),
 		});
 
-		if (!reissueResponse.ok) throw new Error('Token reissue failed');
+		if (!reissueResponse.ok) window.location.href = '/login';
 
 		const tokens: ReissueResponse = await reissueResponse.json();
 		localStorage.setItem('accessToken', tokens.accessToken);
@@ -43,7 +42,7 @@ async function customFetch(input: RequestInfo, init?: RequestInit): Promise<Resp
 	}
 
 	return response;
-}
+};
 
 export const login = async (data: JoinRequest): Promise<JoinResponse> => {
 	const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
