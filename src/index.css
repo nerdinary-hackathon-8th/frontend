@@ -1,5 +1,12 @@
-body,
-html {
+html,
+body {
 	margin: 0;
 	padding: 0;
+	font-family: 'Inter', sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 14.458px;
+	background-color: #fff; /* 필요시 배경색 지정 */
+	color: #333; /* 기본 텍스트 색상 */
 }
