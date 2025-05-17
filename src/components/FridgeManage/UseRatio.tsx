@@ -15,6 +15,7 @@ const Title = styled.p`
     font-weight: bold;
     letter-spacing: -1.5%;
     padding-top: 16px;
+    margin-bottom: 8px;
 `;
 
 const Text = styled.p`

@@ -30,6 +30,11 @@ const Level = styled.p`
     margin-top: 4.3px;
 `;
 
+const NickName = styled.p`
+     font-size: 20px;
+    font-weight: bold;
+    margin-top: 4.3px;
+`
 const Code = styled.p`
     font-size: 14px;
     font-weight: 500;
@@ -144,19 +149,19 @@ export default function SpendType({ level, mbti }: SpendTypeProps) {
     return (
         <Wrapper>
             <Subtitle>냉꼼이가 분석한 당신의 소비 유형</Subtitle>
-            <Level>Level {level}</Level>
-            {/* <Level>Level 1</Level> */}
-            <Level>{typeName}</Level>
-            <Level>냉장고 마스터형</Level>
-            <Code>{mbti}</Code>
-            {/* <Code>EFFS</Code> */}
-            <CharacterImg src={imgSrc} />
-            {/* <CharacterImg src={EFFS} /> */}
-            <Description>{message}</Description>
-            {/* <Description>
+            {/* <Level>Level {level}</Level> */}
+            <Level>Level 1</Level>
+            {/* <NickName>{typeName}</NickName> */}
+            <NickName>냉장고 마스터형</NickName>
+            {/* <Code>{mbti}</Code> */}
+            <Code>EFFS</Code>
+            {/* <CharacterImg src={imgSrc} /> */}
+            <CharacterImg src={EFFS} />
+            {/* <Description>{message}</Description> */}
+            <Description>
                 재료 하나도 안 놓치는 완벽 소비자! 탄소 절감력 만렙, 실천력도 최고예요! 정말
                 대단해요!
-            </Description> */}
+            </Description>
         </Wrapper>
     );
 }

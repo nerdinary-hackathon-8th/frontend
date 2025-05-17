@@ -48,6 +48,20 @@ const Divider = styled.div`
     border-bottom: 1.5px solid #f2f2f2;
 `;
 
+const TextBox = styled.div`
+    gap: 4px;
+    padding: 24px;
+`;
+const LastText = styled.p`
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.5%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+    margin-top: 0px;
+`;
+
 export default function FridgeManagement() {
     const navigate = useNavigate();
 
@@ -80,8 +94,12 @@ export default function FridgeManagement() {
             <ExpiredProduct count={data?.nearExpiredCount || -1} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
             <Mission />
-            <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
+            <div style={{ marginTop: "13px", marginBottom: "13px" }}></div>
             <SpendType level={data?.level || 0} mbti={data?.foodBTI || ""} />
+            <TextBox>
+                <LastText>다음 레벨로 업그레이드할 수 있어요</LastText>
+                <LastText>지구를 사랑하는 꼼꼼 살림왕이 되어봐요!</LastText>
+            </TextBox>
         </Page>
     );
 }
