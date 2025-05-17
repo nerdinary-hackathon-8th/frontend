@@ -80,7 +80,7 @@ const Footer = styled.div`
 	position: absolute;
 	bottom: 16px;
 	font-size: 10px;
-	color: white;
+	color: #bcbcbc;
 	text-align: center;
 	width: 100%;
 `;

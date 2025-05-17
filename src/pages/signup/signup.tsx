@@ -9,31 +9,29 @@ const Signup = () => {
 	const [password, setPassword] = useState('');
 
 	const handleSubmit = async () => {
-		try {
-			const res = await login({ email, password });
-			console.log('로그인 성공');
-
-			const accessToken = res.accessToken;
-			const refreshToken = res.refreshToken;
-
-			localStorage.setItem('accessToken', accessToken);
-			localStorage.setItem('accessToken', refreshToken);
+		const handleSuccess = (res: { accessToken: string; refreshToken: string }) => {
+			localStorage.setItem('accessToken', res.accessToken);
+			localStorage.setItem('refreshToken', res.refreshToken);
 			navigate('/');
-		} catch (loginError) {
-			console.warn('로그인 실패:', loginError);
-			try {
-				const res = await join({ email, password });
-				console.log('회원가입 성공, 로그인 재시도');
-				const accessToken = res.accessToken;
-				const refreshToken = res.refreshToken;
+		};
 
-				localStorage.setItem('accessToken', accessToken);
-				localStorage.setItem('accessToken', refreshToken);
-				navigate('/');
-			} catch (joinError) {
-				console.error('회원가입 실패:', joinError);
+		const tryLoginOrJoin = async () => {
+			try {
+				const res = await login({ email, password });
+				handleSuccess(res);
+			} catch (loginError) {
+				console.warn('로그인 실패:', loginError);
+				try {
+					const res = await join({ email, password });
+					handleSuccess(res);
+				} catch (joinError) {
+					console.error('회원가입 실패:', joinError);
+					alert('회원가입에 실패했습니다.');
+				}
 			}
-		}
+		};
+
+		tryLoginOrJoin();
 	};
 
 	return (
@@ -45,6 +43,7 @@ const Signup = () => {
 				<Label>비밀번호</Label>
 				<InputBox type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 				<SubmitButton onClick={handleSubmit}>완료</SubmitButton>
+				<Footer>탄소절감단체 너디너디8th Corp.</Footer>
 			</LoginBox>
 		</Container>
 	);
@@ -114,4 +113,12 @@ const SubmitButton = styled.button`
 	border: none;
 	border-radius: 8px;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+`;
+const Footer = styled.div`
+	position: absolute;
+	bottom: 16px;
+	font-size: 10px;
+	color: #bcbcbc;
+	text-align: center;
+	width: 100%;
 `;
