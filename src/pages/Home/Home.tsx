@@ -34,7 +34,7 @@ const Home = () => {
 
 	return (
 		<Container>
-			<LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+			{/* <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton> */}
 			<Header>
 				<LeftText>
 					<BoldText>냉집사의 환영인사</BoldText>
@@ -73,20 +73,20 @@ const Container = styled.div`
 	min-height: 60vh;
 `;
 
-const LogoutButton = styled.button`
-	position: absolute;
-	top: 16px;
-	right: 16px;
-	background-color: white;
-	color: ${theme.colors.main};
-	border: 2px solid ${theme.colors.main};
-	border-radius: 20px;
-	padding: 4px 12px;
-	font-size: 12px;
-	font-weight: bold;
-	cursor: pointer;
-	z-index: 100;
-`;
+// const LogoutButton = styled.button`
+// 	position: absolute;
+// 	top: 16px;
+// 	right: 16px;
+// 	background-color: white;
+// 	color: ${theme.colors.main};
+// 	border: 2px solid ${theme.colors.main};
+// 	border-radius: 20px;
+// 	padding: 4px 12px;
+// 	font-size: 12px;
+// 	font-weight: bold;
+// 	cursor: pointer;
+// 	z-index: 100;
+// `;
 
 const Header = styled.div`
 	padding: 24px 16px 10px;
