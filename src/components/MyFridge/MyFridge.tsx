@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import FridgeSVG from '@assets/Refrigenerator.svg?react';
 import CheckSVG from '@assets/check.svg?react';
 import CarrotSVG from '@assets/carrot.svg?react';
@@ -9,7 +9,7 @@ const DraggableContainer = styled.div<{ expanded: boolean }>`
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: ${({ expanded }) => (expanded ? '100vh' : '60vh')};
+	height: ${({ expanded }) => (expanded ? '100vh' : '55vh')};
 	background-color: #fff;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
@@ -134,20 +134,22 @@ const CheckboxRow = styled.div`
 	color: #d1d1d1;
 `;
 
-const mockItems = [
-	{ name: '대파', type: '전체', expiry: '2025-00-00', isSoon: true },
-	{ name: '대파', type: '실외', expiry: '2025-00-00', isSoon: true },
-	{ name: '대파', type: '냉장', expiry: '2025-00-00', isSoon: false },
-	{ name: '대파', type: '냉동', expiry: '2025-00-00', isSoon: false },
-	{ name: '대파', type: '냉동', expiry: '2025-00-00', isSoon: true },
-];
-
 const MyFridge = () => {
 	const [expanded, setExpanded] = useState(false);
 	const [selectedTab, setSelectedTab] = useState('전체');
 	const [searchTerm, setSearchTerm] = useState('');
 	const [showOnlyExpiring, setShowOnlyExpiring] = useState(false);
 	const startYRef = useRef<number | null>(null);
+	const [items, setItems] = useState<typeof mockItems>([]);
+
+	const fetchData = async () => {
+		const data = await mockItems;
+		setItems(data);
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	const handleTouchStart = (e: React.TouchEvent) => {
 		startYRef.current = e.touches[0].clientY;
@@ -161,11 +163,13 @@ const MyFridge = () => {
 		else if (deltaY > 50) setExpanded(false);
 		startYRef.current = null;
 	};
-	const handleConsume = () => {
-		alert('소비완료');
+	const handleConsume = (index: number) => {
+		const updated = items.filter((_, i) => i !== index);
+		setItems(updated);
+		setTimeout(fetchData, 500); // simulate re-fetch
 	};
 
-	const filtered = mockItems.filter(
+	const filtered = items.filter(
 		(item) => (selectedTab === '전체' || item.type === selectedTab) && item.name.includes(searchTerm) && (!showOnlyExpiring || item.isSoon)
 	);
 
@@ -202,7 +206,7 @@ const MyFridge = () => {
 								<TitleContainer>
 									<Title>{item.name}</Title>
 								</TitleContainer>
-								<CheckContainer onClick={handleConsume}>
+								<CheckContainer onClick={() => handleConsume(idx)}>
 									<CheckSVG width={18} />
 								</CheckContainer>
 							</CardHeader>
@@ -235,3 +239,11 @@ const TitleText = styled.h2`
 	font-weight: bold;
 	margin: 0;
 `;
+
+const mockItems = [
+	{ name: '대파', type: '전체', expiry: '2025-00-00', isSoon: true },
+	{ name: '대파', type: '실외', expiry: '2025-00-00', isSoon: true },
+	{ name: '대파', type: '냉장', expiry: '2025-00-00', isSoon: false },
+	{ name: '대파', type: '냉동', expiry: '2025-00-00', isSoon: false },
+	{ name: '대파', type: '냉동', expiry: '2025-00-00', isSoon: true },
+];
