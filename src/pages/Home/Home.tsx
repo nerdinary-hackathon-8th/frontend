@@ -49,20 +49,24 @@ const Home = () => {
                     </StrongText>
                 </LeftText>
                 <CharacterCircle>
-                    <StyledProfile
-                        onClick={() =>
-                            navigate("/fridge-management", {
-                                state: { text: randomRecommendation },
-                            })
-                        }
-                    />
+                    <StyledProfile onClick={() => navigate("/fridge-management")} />
                 </CharacterCircle>
             </Header>
             <RecommendationCard>
                 <RecommendationTitle>
                     <SpeedSVG /> 오늘의 탄소 배출 습관 추천
                 </RecommendationTitle>
-                <RecommendationText>{randomRecommendation}</RecommendationText>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "12px",
+                    }}
+                >
+                    <RecommendationText>{randomRecommendation}</RecommendationText>
+                    <AssistantText>냉꼼이는 수행중...</AssistantText>
+                </div>
             </RecommendationCard>
             <MyFridge />
             <FloatingButton onClick={handleButtonClick} />
@@ -162,7 +166,7 @@ const RecommendationTitle = styled.div`
 `;
 
 const RecommendationText = styled.div`
-    font-size: 13px;
+    font-size: 12px;
     color: #333;
 `;
 
@@ -170,4 +174,9 @@ const FloatingButton = styled(FloatingButtonSVG)`
     position: fixed;
     right: 15px;
     bottom: 15px;
+`;
+
+const AssistantText = styled.div`
+    font-size: 12px;
+    color: ${theme.colors.gray3};
 `;
