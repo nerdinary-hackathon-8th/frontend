@@ -4,6 +4,7 @@ import FoodName from "../../components/RegisterFood/FoodName";
 import FoodExample from "../../assets/foodExample.png";
 import { useState } from "react";
 import DateSelect from "../../components/RegisterFood/DateSelect";
+import StorageSelector from "../../components/RegisterFood/StorageSelector";
 
 const Page = styled.div`
     width: 100%;
@@ -42,15 +43,21 @@ const DateWrapper = styled.div`
     margin-left: 10px;
     justify-content: center;
 `;
+
+
 export default function RegisterFood() {
-    // const { id } = useParams<{ id: string }>();
+    const { id } = useParams<{ id: string }>();
     const location = useLocation();
     const name = location.state as string;
     const [foodName, setFoodName] = useState<string>("");
     const [purchaseDate, setPurchaseDate] = useState<string>("");
     const [expiryDate, setExpiryDate] = useState<string>("");
     const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
-    console.log(foodName);
+
+    const handleStorageChange = (value: number) => {
+        console.log("보관 id값:", value);
+    };
+
     return (
         <Page>
             <Header>{name}</Header>
@@ -75,7 +82,8 @@ export default function RegisterFood() {
                     placeholder={"(구)유통기한을 입력해요."}
                 />
             </DateWrapper>
-
+            <StorageSelector onChange={handleStorageChange} />
+            <button>음식 추가</button>
         </Page>
     );
 }

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
 
 const Container = styled.div`
     display: flex;
@@ -10,7 +9,7 @@ const Container = styled.div`
 
 const Label = styled.label`
     font-weight: 700;
-    font-size: 18px;
+    font-size: 15px;
     color: black;
     margin-bottom: 4px;
 `;
