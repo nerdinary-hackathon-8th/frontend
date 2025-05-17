@@ -10,8 +10,6 @@ const Page = styled.div`
     left: 0;
     right: 0;
     width: 100%;
-    /* padding-left: 20px;
-    padding-right: 20px; */
 `;
 
 const Header = styled.div`
@@ -73,13 +71,7 @@ const AddFood = () => {
         <Page>
             <Header>
                 <HeaderTop>
-                    <BackButton
-                        src={BackButtonImg}
-                        onClick={() => {
-                            console.log("dfdf");
-                            navigate(-1);
-                        }}
-                    />
+                    <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
                     <Title>음식추가</Title>
                 </HeaderTop>
                 <Icon src={FoodAddIcon} />
