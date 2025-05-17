@@ -7,7 +7,6 @@ import EFFS from "../../assets/mbti/EFFS.png";
 import FRGV from "../../assets/mbti/FRGV.png";
 import LCTS from "../../assets/mbti/LCTS.png";
 import WASF from "../../assets/mbti/WASF.png";
-import { useEffect, useState } from "react";
 
 const Wrapper = styled.div`
     background-color: #399128;

@@ -26,12 +26,12 @@ const Text = styled.p`
 `;
 
 const Ratio = styled.p`
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
     letter-spacing: -1.5%;
     color: #00a400;
-    padding-left: 75%;
-    margin-bottom: 20px;
+    padding-left: 78%;
+    margin-top: 35px;
 `;
 
 const consumptionRateMessages = [

@@ -49,7 +49,6 @@ const Divider = styled.div`
 `;
 
 const TextBox = styled.div`
-    gap: 4px;
     padding: 24px;
 `;
 const LastText = styled.p`
@@ -58,7 +57,7 @@ const LastText = styled.p`
     letter-spacing: -0.5%;
     display: flex;
     justify-content: center;
-    margin-bottom: 0px;
+    margin-bottom: 4px;
     margin-top: 0px;
 `;
 
