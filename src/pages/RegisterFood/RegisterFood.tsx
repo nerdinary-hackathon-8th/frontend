@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { useLocation, useParams } from "react-router-dom";
 import FoodName from "../../components/RegisterFood/FoodName";
-import FoodExample from "../../assets/foodExample.png";
 import { useState } from "react";
 import DateSelect from "../../components/RegisterFood/DateSelect";
 import StorageSelector from "../../components/RegisterFood/StorageSelector";
 import { useNavigate } from "react-router-dom";
+import BackButtonImg from "../../assets/back.png";
 
 const Page = styled.div`
     width: 100%;
@@ -29,7 +29,7 @@ const Header = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 220px;
+    height: 270px;
     color: white;
     font-weight: 600;
     font-size: 20px;
@@ -38,12 +38,24 @@ const Header = styled.div`
     background: linear-gradient(180deg, #9aeb70 0%, #54a731 100%);
 `;
 
-const Title = styled.p`
-     margin-bottom: 4px; 
+const BackButton = styled.img`
+    position: absolute;
+    left: 20px;
+    height: 20px;
 `;
+
+const Title = styled.p`
+    position: absolute;
+    top: 20px;
+    color: black;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 900;
+`;
+
 const Image = styled.img`
     margin-bottom: 0px;
-    width: 140px;
+    width: 200px;
 `;
 const DateWrapper = styled.div`
     display: flex;
@@ -88,7 +100,10 @@ export default function RegisterFood() {
     return (
         <Page>
             <Header>
-                <Title>{name}</Title>
+                <Title>
+                    <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
+                    {name}
+                </Title>
                 <Image src={icon} />
             </Header>
             <FoodName onChange={(e) => setFoodName(e.target.value)} />

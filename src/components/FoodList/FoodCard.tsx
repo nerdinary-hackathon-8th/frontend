@@ -24,7 +24,7 @@ const FoodImage = styled.img`
 `;
 
 const FoodName = styled.p`
-    font-size: 13px;
+    font-size: 12px;
     color: black;
     margin: 0;
 `;
