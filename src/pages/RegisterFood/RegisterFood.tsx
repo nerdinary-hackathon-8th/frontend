@@ -105,7 +105,6 @@ export default function RegisterFood() {
 	const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
 	const [storageMethod, setStorageMethod] = useState<string>('');
 
-<<<<<<< HEAD
     const data: RegisterFoodRequest = {
         foodName: foodName,
         foodCategory: category,
@@ -115,15 +114,11 @@ export default function RegisterFood() {
     };
 
     console.log(data);
-=======
-	console.log(foodName, category, purchaseDate, expirationDate, storageMethod);
->>>>>>> main
 
 	const handleStorageChange = (value: string) => {
 		setStorageMethod(value);
 	};
 
-<<<<<<< HEAD
     const handleFoodSubmit = async () => {
         if ((!expirationDate || expirationDate === "") && !isExpiryUnknown) {
             alert("소비기한을 입력해주세요");
@@ -175,47 +170,11 @@ export default function RegisterFood() {
                 />
             </DateWrapper>
             <Divider style={{ marginTop: "15px" }} />
-            <StorageSelector onChange={handleStorageChange} />
+            <StorageSelector category={category} onChange={handleStorageChange} />
             {/* TODO : 입력 완료 체크 */}
             <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "5px" }}>
                 <RegisterButton onClick={handleFoodSubmit}>식품 추가하기</RegisterButton>
             </div>
         </Page>
     );
-=======
-	return (
-		<Page>
-			<Header>
-				<Title>
-					<BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
-					{category}
-					<Icon src={Bubble} />
-				</Title>
-				<Image src={icon} />
-			</Header>
-			<FoodName onChange={(e) => setFoodName(e.target.value)} />
-			<Divider style={{ marginTop: '20px', marginBottom: '10px' }} />
-			<DateWrapper>
-				<DateSelect label="구매일" dateValue={purchaseDate} onDateChange={setPurchaseDate} placeholder={'오늘 기준으로 자동 설정돼요.'} />
-
-				<DateSelect
-					label="소비기한"
-					dateValue={expirationDate ?? ''}
-					onDateChange={setExpirationDate}
-					showCheckbox={true}
-					checkboxLabel="소비기한이 안적혀있어요."
-					checkboxChecked={isExpiryUnknown}
-					onCheckboxChange={setIsExpiryUnknown}
-					placeholder={'(구)유통기한을 입력해요.'}
-				/>
-			</DateWrapper>
-			<Divider style={{ marginTop: '15px' }} />
-			<StorageSelector onChange={handleStorageChange} category={category} />
-			{/* TODO : 입력 완료 체크 */}
-			<div style={{ paddingLeft: '20px', paddingRight: '20px', paddingTop: '5px' }}>
-				<RegisterButton onClick={() => navigate('/finish-register-food')}>음식 추가</RegisterButton>
-			</div>
-		</Page>
-	);
->>>>>>> main
 }
