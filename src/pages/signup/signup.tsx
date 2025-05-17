@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { login, join } from '../../controllers/api';
 import { useNavigate } from 'react-router-dom';
 
+import LogoSVG from '@assets/logo.svg?react';
+
 const Signup = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
@@ -37,7 +39,7 @@ const Signup = () => {
 	return (
 		<Container>
 			<LoginBox>
-				<ProfileCircle>로고</ProfileCircle>
+				<LogoSVG />
 				<Label>이메일</Label>
 				<InputBox value={email} onChange={(e) => setEmail(e.target.value)} />
 				<Label>비밀번호</Label>
@@ -69,18 +71,6 @@ const LoginBox = styled.div`
 	align-items: center;
 	padding-top: 150px;
 	box-sizing: border-box;
-`;
-
-const ProfileCircle = styled.div`
-	width: 120px;
-	height: 120px;
-	background-color: #d3d3d3;
-	border-radius: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #218c2c;
-	font-weight: bold;
 `;
 
 const Label = styled.label`

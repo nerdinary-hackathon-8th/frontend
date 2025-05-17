@@ -1,10 +1,35 @@
 import styled from '@emotion/styled';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type JSX } from 'react';
 import FridgeSVG from '@assets/Refrigenerator.svg?react';
 import CheckSVG from '@assets/check.svg?react';
-import CarrotSVG from '@assets/carrot.svg?react';
 import SearchSVG from '@assets/search.svg?react';
-import { getFoods } from '../../controllers/api';
+import CondimentSVG from '@assets/foodCategories/condiment.svg?react';
+import FishSVG from '@assets/foodCategories/fish.svg?react';
+import FruitSVG from '@assets/foodCategories/fruit.svg?react';
+import MealkitSVG from '@assets/foodCategories/mealkit.svg?react';
+import MeatSVG from '@assets/foodCategories/meat.svg?react';
+import MilkSVG from '@assets/foodCategories/milk.svg?react';
+import ProcessedFoodSVG from '@assets/foodCategories/processedFood.svg?react';
+import SnackSVG from '@assets/foodCategories/snack.svg?react';
+import VegetableSVG from '@assets/foodCategories/vegetable.svg?react';
+import { getFoods } from '@controllers/api';
+import { theme } from '@styles/themes';
+
+const iconMapper = (category: string): JSX.Element => {
+	const map: Record<string, JSX.Element> = {
+		유제품: <MilkSVG />,
+		채소: <VegetableSVG />,
+		육류: <MeatSVG />,
+		과일: <FruitSVG />,
+		해산물: <FishSVG />,
+		과자: <SnackSVG />,
+		가공식품: <ProcessedFoodSVG />,
+		조미료: <CondimentSVG />,
+		밀키트: <MealkitSVG />,
+	};
+
+	return map[category] || <VegetableSVG />;
+};
 
 type Item = {
 	foodName: string;
@@ -18,52 +43,75 @@ type Item = {
 // 	{
 // 		foodName: '대파',
 // 		foodCategory: '채소',
-// 		purchaseDate: '2025-05-01',
 // 		expirationDate: '2025-05-17',
 // 		storageMethod: '실외',
-// 		isSoon: true,
+// 		daysLeft: 3,
 // 	},
 // 	{
 // 		foodName: '달걀',
-// 		foodCategory: '계란/유제품',
-// 		purchaseDate: '2025-05-05',
+// 		foodCategory: '유제품',
 // 		expirationDate: '2025-06-10',
 // 		storageMethod: '실외',
-// 		isSoon: true,
+// 		daysLeft: 27,
 // 	},
 // 	{
 // 		foodName: '우유',
-// 		foodCategory: '계란/유제품',
-// 		purchaseDate: '2025-05-10',
+// 		foodCategory: '유제품',
 // 		expirationDate: '2025-05-10',
 // 		storageMethod: '냉장',
-// 		isSoon: true,
+// 		daysLeft: -4,
 // 	},
 // 	{
 // 		foodName: '만두',
-// 		foodCategory: '냉동식품',
-// 		purchaseDate: '2025-05-02',
+// 		foodCategory: '가공식품',
 // 		expirationDate: '2025-05-31',
 // 		storageMethod: '냉동',
-// 		isSoon: false,
+// 		daysLeft: 17,
 // 	},
 // 	{
 // 		foodName: '소고기',
 // 		foodCategory: '육류',
-// 		purchaseDate: '2025-05-03',
 // 		expirationDate: '2025-05-25',
 // 		storageMethod: '냉동',
-// 		isSoon: false,
+// 		daysLeft: 11,
+// 	},
+// 	{
+// 		foodName: '연어',
+// 		foodCategory: '해산물',
+// 		expirationDate: '2025-05-19',
+// 		storageMethod: '냉장',
+// 		daysLeft: 5,
+// 	},
+// 	{
+// 		foodName: '사과',
+// 		foodCategory: '과일',
+// 		expirationDate: '2025-05-21',
+// 		storageMethod: '실외',
+// 		daysLeft: 7,
+// 	},
+// 	{
+// 		foodName: '케첩',
+// 		foodCategory: '조미료',
+// 		expirationDate: '2026-01-01',
+// 		storageMethod: '실외',
+// 		daysLeft: 229,
+// 	},
+// 	{
+// 		foodName: '샐러드 밀키트',
+// 		foodCategory: '밀키트',
+// 		expirationDate: '2025-05-15',
+// 		storageMethod: '냉장',
+// 		daysLeft: 1,
+// 	},
+// 	{
+// 		foodName: '스낵칩',
+// 		foodCategory: '과자',
+// 		expirationDate: '2025-08-10',
+// 		storageMethod: '실외',
+// 		daysLeft: 88,
 // 	},
 // ];
-// const calculateDday = (expirationDate: string) => {
-// 	const today = new Date();
-// 	const expiry = new Date(expirationDate);
-// 	const diffTime = today.getTime() - expiry.getTime();
-// 	const result = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-// 	return result;
-// };
 const MyFridge = () => {
 	const [expanded, setExpanded] = useState(false);
 	const [selectedTab, setSelectedTab] = useState('전체');
@@ -75,6 +123,7 @@ const MyFridge = () => {
 	useEffect(() => {
 		(async () => {
 			const data = await getFoods();
+			// const data = await mockItems;
 			setItems(data);
 		})();
 	}, []);
@@ -136,9 +185,7 @@ const MyFridge = () => {
 							return (
 								<ItemCard key={idx}>
 									<CardHeader>
-										<CarrotContainer>
-											<CarrotSVG />
-										</CarrotContainer>
+										<IconContainer>{iconMapper(item.foodCategory)}</IconContainer>
 										<TitleContainer>
 											<Title>{item.foodName}</Title>
 										</TitleContainer>
@@ -176,7 +223,7 @@ const DraggableContainer = styled.div<{ expanded: boolean }>`
 const TopBar = styled.div`
 	width: 60px;
 	height: 3px;
-	background-color: #ccc;
+	background-color: ${theme.colors.gray1};
 	border-radius: 3px;
 	margin: 8px auto 0 auto;
 `;
@@ -188,7 +235,7 @@ const ScrollContainer = styled.div`
 
 const ItemCard = styled.div`
 	background-color: white;
-	border: 1px solid #ccc;
+	border: 1px solid #c1c1c1;
 	border-radius: 12px;
 	padding: 12px 12px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -197,12 +244,12 @@ const ItemCard = styled.div`
 
 const Title = styled.div`
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 14px;
 	margin: 0;
 `;
 
 const Expiry = styled.div`
-	font-size: 10px;
+	font-size: 11px;
 	color: #666;
 `;
 
@@ -216,9 +263,9 @@ const Countdown = styled.div<{ imminent: boolean }>`
 
 const Tab = styled.div<{ active: boolean }>`
 	font-weight: ${({ active }) => (active ? '700' : '400')};
-	color: ${({ active }) => (active ? '#00a000' : '#d1d1d1')};
+	color: ${({ active }) => (active ? theme.colors.main : theme.colors.gray2)};
 	font-size: ${({ active }) => (active ? '16px' : '15px')};
-	border-bottom: 2px solid ${({ active }) => (active ? '#00a000' : 'transparent')};
+	border-bottom: 2px solid ${({ active }) => (active ? theme.colors.main : 'transparent')};
 	padding-top: 16px;
 	cursor: pointer;
 `;
@@ -265,12 +312,12 @@ const StyledSearchInput = styled.input`
 	font-style: normal;
 	font-weight: 500;
 	line-height: 15px;
-	color: #c5c5c5;
+	color: ${theme.colors.gray1};
 	box-sizing: border-box;
 	background-color: #eee;
 
 	&::placeholder {
-		color: #c5c5c5;
+		color: ${theme.colors.gray1};
 	}
 `;
 
@@ -283,12 +330,12 @@ const Grid = styled.div`
 
 const CardHeader = styled.div`
 	display: flex;
-	align-items: center; /* vertical center */
-	justify-content: space-between; /* horizontal space between */
+	align-items: center;
+	justify-content: space-between;
 	margin-bottom: 8px;
 `;
 
-const CarrotContainer = styled.div`
+const IconContainer = styled.div`
 	flex: 1;
 	display: flex;
 	justify-content: flex-start;
@@ -309,9 +356,9 @@ const CheckContainer = styled.div`
 `;
 
 const FilterButton = styled.button<{ active: boolean }>`
-	background-color: ${({ active }) => (active ? '#FF9D79' : '#FFFFFF')};
-	border: 1px solid #ff9d79;
-	color: ${({ active }) => (active ? '#FFFFFF' : '#FF9D79')};
+	background-color: ${({ active }) => (active ? theme.colors.point : '#FFFFFF')};
+	border: 1px solid ${theme.colors.point};
+	color: ${({ active }) => (active ? '#FFFFFF' : theme.colors.point)};
 	border-radius: 16px;
 	padding: 4px 12px;
 	font-size: 13px;

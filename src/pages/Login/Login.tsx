@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import LogoSVG from '@assets/logo.svg?react';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -10,10 +11,10 @@ const Login = () => {
 		<Container>
 			<LoginBox>
 				<SubText>
-					냉곰이 키우고,
-					<br /> 냉장고도 관리하자!
+					냉장고 관리,
+					<br /> 냉꼼이가 쉽게 도와줄게요!
 				</SubText>
-				<ProfileCircle>로고</ProfileCircle>
+				<LogoSVG />
 				<LoginButton onClick={handleLogin}>로그인/회원가입</LoginButton>
 				<Footer>탄소절감단체 너디너디8th Corp.</Footer>
 			</LoginBox>
@@ -43,18 +44,6 @@ const LoginBox = styled.div`
 	padding-top: 150px;
 	box-sizing: border-box;
 	position: relative;
-`;
-
-const ProfileCircle = styled.div`
-	width: 120px;
-	height: 120px;
-	background-color: #d3d3d3;
-	border-radius: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #00a400;
-	font-weight: bold;
 `;
 
 const LoginButton = styled.button`
