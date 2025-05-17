@@ -12,8 +12,9 @@ import MilkSVG from '@assets/foodCategories/milk.svg?react';
 import ProcessedFoodSVG from '@assets/foodCategories/processedFood.svg?react';
 import SnackSVG from '@assets/foodCategories/snack.svg?react';
 import VegetableSVG from '@assets/foodCategories/vegetable.svg?react';
-import { getFoods } from '@controllers/api';
+import { consumeFood, getFoods } from '@controllers/api';
 import { theme } from '@styles/themes';
+import type { getFoodResponse } from '@controllers/api.Prop';
 
 const iconMapper = (category: string): JSX.Element => {
 	const map: Record<string, JSX.Element> = {
@@ -31,21 +32,14 @@ const iconMapper = (category: string): JSX.Element => {
 	return map[category] || <VegetableSVG />;
 };
 
-type Item = {
-	foodName: string;
-	foodCategory: string;
-	expirationDate: string;
-	storageMethod: string;
-	daysLeft: number;
-};
-
-const mockItems: Item[] = [
+const mockItems: getFoodResponse[] = [
 	{
 		foodName: '대파',
 		foodCategory: '채소',
 		expirationDate: '2025-05-17',
 		storageMethod: '실외',
-		daysLeft: 3,
+		daysLeft: -3,
+		foodRegisterId: 1,
 	},
 	{
 		foodName: '달걀',
@@ -53,6 +47,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-06-10',
 		storageMethod: '실외',
 		daysLeft: 27,
+		foodRegisterId: 2,
 	},
 	{
 		foodName: '우유',
@@ -60,6 +55,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-05-10',
 		storageMethod: '냉장',
 		daysLeft: -4,
+		foodRegisterId: 3,
 	},
 	{
 		foodName: '만두',
@@ -67,6 +63,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-05-31',
 		storageMethod: '냉동',
 		daysLeft: 17,
+		foodRegisterId: 4,
 	},
 	{
 		foodName: '소고기',
@@ -74,6 +71,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-05-25',
 		storageMethod: '냉동',
 		daysLeft: 11,
+		foodRegisterId: 5,
 	},
 	{
 		foodName: '연어',
@@ -81,6 +79,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-05-19',
 		storageMethod: '냉장',
 		daysLeft: 5,
+		foodRegisterId: 6,
 	},
 	{
 		foodName: '사과',
@@ -88,6 +87,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-05-21',
 		storageMethod: '실외',
 		daysLeft: 7,
+		foodRegisterId: 7,
 	},
 	{
 		foodName: '케첩',
@@ -95,6 +95,7 @@ const mockItems: Item[] = [
 		expirationDate: '2026-01-01',
 		storageMethod: '실외',
 		daysLeft: 229,
+		foodRegisterId: 8,
 	},
 	{
 		foodName: '샐러드 밀키트',
@@ -102,6 +103,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-05-15',
 		storageMethod: '냉장',
 		daysLeft: 1,
+		foodRegisterId: 9,
 	},
 	{
 		foodName: '스낵칩',
@@ -109,6 +111,7 @@ const mockItems: Item[] = [
 		expirationDate: '2025-08-10',
 		storageMethod: '실외',
 		daysLeft: 88,
+		foodRegisterId: 10,
 	},
 ];
 
@@ -118,7 +121,7 @@ const MyFridge = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [showOnlyExpiring, setShowOnlyExpiring] = useState(false);
 	const startYRef = useRef<number | null>(null);
-	const [items, setItems] = useState<Item[]>([]);
+	const [items, setItems] = useState<getFoodResponse[]>([]);
 
 	useEffect(() => {
 		(async () => {
@@ -141,8 +144,9 @@ const MyFridge = () => {
 		startYRef.current = null;
 	};
 
-	const handleConsume = (index: number) => {
+	const handleConsume = (index: number, foodRegisterId: number) => {
 		setItems((prev) => prev.filter((_, i) => i !== index));
+		consumeFood(foodRegisterId);
 	};
 
 	return (
@@ -189,7 +193,7 @@ const MyFridge = () => {
 										<TitleContainer>
 											<Title>{item.foodName}</Title>
 										</TitleContainer>
-										<CheckContainer onClick={() => handleConsume(idx)}>
+										<CheckContainer onClick={() => handleConsume(idx, item.foodRegisterId)}>
 											<CheckSVG width={18} />
 										</CheckContainer>
 									</CardHeader>
