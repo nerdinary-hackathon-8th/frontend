@@ -35,82 +35,82 @@ type Item = {
 	foodName: string;
 	foodCategory: string;
 	expirationDate: string;
-	storageMethod?: string;
+	storageMethod: string;
 	daysLeft: number;
 };
 
-// const mockItems: Item[] = [
-// 	{
-// 		foodName: '대파',
-// 		foodCategory: '채소',
-// 		expirationDate: '2025-05-17',
-// 		storageMethod: '실외',
-// 		daysLeft: 3,
-// 	},
-// 	{
-// 		foodName: '달걀',
-// 		foodCategory: '유제품',
-// 		expirationDate: '2025-06-10',
-// 		storageMethod: '실외',
-// 		daysLeft: 27,
-// 	},
-// 	{
-// 		foodName: '우유',
-// 		foodCategory: '유제품',
-// 		expirationDate: '2025-05-10',
-// 		storageMethod: '냉장',
-// 		daysLeft: -4,
-// 	},
-// 	{
-// 		foodName: '만두',
-// 		foodCategory: '가공식품',
-// 		expirationDate: '2025-05-31',
-// 		storageMethod: '냉동',
-// 		daysLeft: 17,
-// 	},
-// 	{
-// 		foodName: '소고기',
-// 		foodCategory: '육류',
-// 		expirationDate: '2025-05-25',
-// 		storageMethod: '냉동',
-// 		daysLeft: 11,
-// 	},
-// 	{
-// 		foodName: '연어',
-// 		foodCategory: '해산물',
-// 		expirationDate: '2025-05-19',
-// 		storageMethod: '냉장',
-// 		daysLeft: 5,
-// 	},
-// 	{
-// 		foodName: '사과',
-// 		foodCategory: '과일',
-// 		expirationDate: '2025-05-21',
-// 		storageMethod: '실외',
-// 		daysLeft: 7,
-// 	},
-// 	{
-// 		foodName: '케첩',
-// 		foodCategory: '조미료',
-// 		expirationDate: '2026-01-01',
-// 		storageMethod: '실외',
-// 		daysLeft: 229,
-// 	},
-// 	{
-// 		foodName: '샐러드 밀키트',
-// 		foodCategory: '밀키트',
-// 		expirationDate: '2025-05-15',
-// 		storageMethod: '냉장',
-// 		daysLeft: 1,
-// 	},
-// 	{
-// 		foodName: '스낵칩',
-// 		foodCategory: '과자',
-// 		expirationDate: '2025-08-10',
-// 		storageMethod: '실외',
-// 		daysLeft: 88,
-// 	},
-// ];
+const mockItems: Item[] = [
+	{
+		foodName: '대파',
+		foodCategory: '채소',
+		expirationDate: '2025-05-17',
+		storageMethod: '실외',
+		daysLeft: 3,
+	},
+	{
+		foodName: '달걀',
+		foodCategory: '유제품',
+		expirationDate: '2025-06-10',
+		storageMethod: '실외',
+		daysLeft: 27,
+	},
+	{
+		foodName: '우유',
+		foodCategory: '유제품',
+		expirationDate: '2025-05-10',
+		storageMethod: '냉장',
+		daysLeft: -4,
+	},
+	{
+		foodName: '만두',
+		foodCategory: '가공식품',
+		expirationDate: '2025-05-31',
+		storageMethod: '냉동',
+		daysLeft: 17,
+	},
+	{
+		foodName: '소고기',
+		foodCategory: '육류',
+		expirationDate: '2025-05-25',
+		storageMethod: '냉동',
+		daysLeft: 11,
+	},
+	{
+		foodName: '연어',
+		foodCategory: '해산물',
+		expirationDate: '2025-05-19',
+		storageMethod: '냉장',
+		daysLeft: 5,
+	},
+	{
+		foodName: '사과',
+		foodCategory: '과일',
+		expirationDate: '2025-05-21',
+		storageMethod: '실외',
+		daysLeft: 7,
+	},
+	{
+		foodName: '케첩',
+		foodCategory: '조미료',
+		expirationDate: '2026-01-01',
+		storageMethod: '실외',
+		daysLeft: 229,
+	},
+	{
+		foodName: '샐러드 밀키트',
+		foodCategory: '밀키트',
+		expirationDate: '2025-05-15',
+		storageMethod: '냉장',
+		daysLeft: 1,
+	},
+	{
+		foodName: '스낵칩',
+		foodCategory: '과자',
+		expirationDate: '2025-08-10',
+		storageMethod: '실외',
+		daysLeft: 88,
+	},
+];
 
 const MyFridge = () => {
 	const [expanded, setExpanded] = useState(false);
@@ -122,8 +122,8 @@ const MyFridge = () => {
 
 	useEffect(() => {
 		(async () => {
-			const data = await getFoods();
-			// const data = await mockItems;
+			// const data = await getFoods();
+			const data = await mockItems;
 			setItems(data);
 		})();
 	}, []);
@@ -193,7 +193,7 @@ const MyFridge = () => {
 											<CheckSVG width={18} />
 										</CheckContainer>
 									</CardHeader>
-									<Expiry>소비기한 : {item.expirationDate}</Expiry>
+									<Expiry>소비기한 : {item.expirationDate || Date()} </Expiry>
 									<Countdown imminent={item.daysLeft >= -7}>{displayDday}</Countdown>
 								</ItemCard>
 							);
@@ -237,7 +237,7 @@ const ItemCard = styled.div`
 	background-color: white;
 	border: 1px solid #c1c1c1;
 	border-radius: 12px;
-	padding: 12px 12px;
+	padding: 10px 12px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 	position: relative;
 `;
@@ -336,20 +336,20 @@ const CardHeader = styled.div`
 `;
 
 const IconContainer = styled.div`
-	flex: 1;
+	flex: 3;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 `;
 
 const TitleContainer = styled.div`
-	flex: 2;
+	flex: 8;
 	display: flex;
 	align-items: center;
 `;
 
 const CheckContainer = styled.div`
-	flex: 1;
+	flex: 3;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
