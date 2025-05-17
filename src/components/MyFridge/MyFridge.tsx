@@ -336,20 +336,20 @@ const CardHeader = styled.div`
 `;
 
 const IconContainer = styled.div`
-	flex: 0.75;
+	flex: 3;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 `;
 
 const TitleContainer = styled.div`
-	flex: 2;
+	flex: 8;
 	display: flex;
 	align-items: center;
 `;
 
 const CheckContainer = styled.div`
-	flex: 1;
+	flex: 3;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
