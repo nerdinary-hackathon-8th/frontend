@@ -22,11 +22,12 @@ const Home = () => {
 	const handleButtonClick = () => {
 		navigate('/addfood');
 	};
-	const handleLogout = () => {
-		localStorage.removeItem('accessToken');
-		localStorage.removeItem('refreshToken');
-		window.location.href = '/';
-	};
+
+	// const handleLogout = () => {
+	// 	localStorage.removeItem('accessToken');
+	// 	localStorage.removeItem('refreshToken');
+	// 	window.location.href = '/';
+	// };
 
 	const randomRecommendation = useMemo(() => {
 		return recommendations[Math.floor(Math.random() * recommendations.length)];
