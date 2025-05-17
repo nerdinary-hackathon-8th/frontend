@@ -64,13 +64,6 @@ const CheckboxWrapper = styled.label`
     user-select: none;
 `;
 
-const CalendarIcon2 = styled.span`
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: url("/icons/calendar.svg") no-repeat center center;
-    background-size: contain;
-`;
 
 interface DateSelect {
     label: string;
@@ -127,7 +120,7 @@ export default function DateSelect({
                     max="2099-12-31"
                     value={dateValue}
                     onChange={(e) => onDateChange(e.target.value)}
-                    onClick={() => inputRef.current?.showPicker()}
+                    // onClick={() => inputRef.current?.showPicker()}
                 />
             </InputWrapper>
             {showCheckbox && (
