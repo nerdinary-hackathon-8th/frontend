@@ -2,7 +2,7 @@ import "./App.css";
 import MenuFooter from "./layout/Mainlayout/MenuFooter";
 
 function App() {
-  const currentMenuIndex = 1;
+    const currentMenuIndex = 1;
     return (
         <div>
             <h1>App Page</h1>

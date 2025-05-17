@@ -1,20 +1,30 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root from './Root';
-import App from '../App';
+import { createBrowserRouter } from 'react-router-dom';
 
-const router = createBrowserRouter([
+import Root from './Root';
+import Login from '../pages/Login/Login';
+import Home from '../pages/Home/Home';
+import Signup from '../pages/signup/signup';
+
+const webPath = {
+	login: () => '/login',
+	signup: () => '/signup',
+};
+
+const routes = [
+	{ path: '*', element: <div>404 Not Found</div> },
 	{
 		path: '/',
 		element: <Root />,
-		children: [
-			{
-				index: true,
-				element: <App />,
-			},
-		],
+		children: [{ path: 'home', element: <Home /> }],
 	},
-]);
+	{
+		path: webPath.login(),
+		element: <Login />,
+	},
+	{
+		path: webPath.signup(),
+		element: <Signup />,
+	},
+];
 
-export default function Router() {
-	return <RouterProvider router={router} />;
-}
+export const router = createBrowserRouter(routes);
