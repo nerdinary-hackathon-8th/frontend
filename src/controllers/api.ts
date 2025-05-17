@@ -1,4 +1,4 @@
-import type { ReissueResponse, JoinRequest, JoinResponse, getFoodResponse, RegisterFoodRequest, RegisterFoodResponse } from './api.Prop';
+import type { ReissueResponse, JoinRequest, JoinResponse, getFoodResponse, RegisterFoodRequest, RegisterFoodResponse, getMyMbtiResponse } from './api.Prop';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const jsonHeaders = {
@@ -117,4 +117,17 @@ export const consumeFood = async (foodName: number): Promise<void> => {
 		const errorText = await response.text();
 		throw new Error(`식품 소비 실패: ${errorText}`);
 	}
+};
+
+export const getMyMbti = async (): Promise<getMyMbtiResponse> => {
+	const response = await fetch(`${API_BASE_URL}/api/foods/register`, {
+		method: 'GET',
+	});
+
+	if (!response.ok) {
+		const errorText = await response.text();
+		throw new Error(` 실패: ${errorText}`);
+	}
+
+	return response.json();
 };

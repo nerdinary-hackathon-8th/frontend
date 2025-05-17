@@ -7,6 +7,7 @@ import Signup from "../pages/signup/signup";
 import AddFood from "../pages/AddFood/AddFood";
 import RegisterFood from "../pages/RegisterFood/RegisterFood";
 import FinishRegisterFood from "../pages/FinishRegisterFood/FinishRegisterFood";
+import FridgeManagement from "../pages/FridgeManagement/FridgeManagement";
 
 const webPath = {
     login: () => "/login",
@@ -14,6 +15,7 @@ const webPath = {
     addfood: () => "/addfood",
     registerfood: () => "/register-food/:id",
     finishregisterfood: () => "/finish-register-food",
+    fridgemanagement: () => "/fridge-management",
 };
 
 const routes = [
@@ -42,6 +44,10 @@ const routes = [
     {
         path: webPath.finishregisterfood(),
         element: <FinishRegisterFood />,
+    },
+    {
+        path: webPath.fridgemanagement(),
+        element: <FridgeManagement />,
     },
 ];
 
