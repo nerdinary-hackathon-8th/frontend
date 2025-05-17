@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import FoodName from "../../components/RegisterFood/FoodName";
 import { useState } from "react";
 import DateSelect from "../../components/RegisterFood/DateSelect";
