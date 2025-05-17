@@ -20,6 +20,7 @@ export interface getFoodResponse {
 	storageMethod: string;
 	daysLeft: number;
 	foodRegisterId: number;
+	isCompleted: string;
 }
 
 export interface RegisterFoodRequest {
@@ -37,12 +38,12 @@ export interface RegisterFoodResponse {
 }
 
 export interface getMyMbtiResponse {
-    consumptionRate: string;
-    fridgeComment: string;
-    nearExpiredCount: number;
-    level: number;
-    typeName: string;
-    foodBTI: string;
-    foodBTIDetail: string;
-    description: string;
+	consumptionRate: string;
+	fridgeComment: string;
+	nearExpiredCount: number;
+	level: number;
+	typeName: string;
+	foodBTI: string;
+	foodBTIDetail: string;
+	description: string;
 }

@@ -37,89 +37,6 @@ const iconMapper = (category: string): JSX.Element => {
 	return map[category] || <VegetableSVG />;
 };
 
-// const mockItems: getFoodResponse[] = [
-// 	{
-// 		foodName: '대파',
-// 		foodCategory: '채소',
-// 		expirationDate: '2025-05-17',
-// 		storageMethod: '실외',
-// 		daysLeft: -3,
-// 		foodRegisterId: 1,
-// 	},
-// 	{
-// 		foodName: '달걀',
-// 		foodCategory: '유제품',
-// 		expirationDate: '2025-06-10',
-// 		storageMethod: '실외',
-// 		daysLeft: 27,
-// 		foodRegisterId: 2,
-// 	},
-// 	{
-// 		foodName: '우유',
-// 		foodCategory: '유제품',
-// 		expirationDate: '2025-05-10',
-// 		storageMethod: '냉장',
-// 		daysLeft: -4,
-// 		foodRegisterId: 3,
-// 	},
-// 	{
-// 		foodName: '만두',
-// 		foodCategory: '가공식품',
-// 		expirationDate: '2025-05-31',
-// 		storageMethod: '냉동',
-// 		daysLeft: 17,
-// 		foodRegisterId: 4,
-// 	},
-// 	{
-// 		foodName: '소고기',
-// 		foodCategory: '육류',
-// 		expirationDate: '2025-05-25',
-// 		storageMethod: '냉동',
-// 		daysLeft: 11,
-// 		foodRegisterId: 5,
-// 	},
-// 	{
-// 		foodName: '연어',
-// 		foodCategory: '해산물',
-// 		expirationDate: '2025-05-19',
-// 		storageMethod: '냉장',
-// 		daysLeft: 5,
-// 		foodRegisterId: 6,
-// 	},
-// 	{
-// 		foodName: '사과',
-// 		foodCategory: '과일',
-// 		expirationDate: '2025-05-21',
-// 		storageMethod: '실외',
-// 		daysLeft: 7,
-// 		foodRegisterId: 7,
-// 	},
-// 	{
-// 		foodName: '케첩',
-// 		foodCategory: '조미료',
-// 		expirationDate: '2026-01-01',
-// 		storageMethod: '실외',
-// 		daysLeft: 229,
-// 		foodRegisterId: 8,
-// 	},
-// 	{
-// 		foodName: '샐러드 밀키트',
-// 		foodCategory: '밀키트',
-// 		expirationDate: '2025-05-15',
-// 		storageMethod: '냉장',
-// 		daysLeft: 1,
-// 		foodRegisterId: 9,
-// 	},
-// 	{
-// 		foodName: '스낵칩',
-// 		foodCategory: '과자',
-// 		expirationDate: '2025-08-10',
-// 		storageMethod: '실외',
-// 		daysLeft: 88,
-// 		foodRegisterId: 10,
-// 	},
-// ];
-
 const MyFridge = () => {
 	const [expanded, setExpanded] = useState(false);
 	const [selectedTab, setSelectedTab] = useState('전체');
@@ -128,13 +45,13 @@ const MyFridge = () => {
 	const startYRef = useRef<number | null>(null);
 	const [items, setItems] = useState<getFoodResponse[]>([]);
 
+	const fetchItems = async () => {
+		const data = await getFoods();
+		setItems(data);
+	};
+
 	useEffect(() => {
-		(async () => {
-			const data = await getFoods();
-			// const data = await mockItems;
-			console.log(data);
-			setItems(data);
-		})();
+		fetchItems();
 	}, []);
 
 	const handleTouchStart = (e: React.TouchEvent) => {
@@ -150,9 +67,9 @@ const MyFridge = () => {
 		startYRef.current = null;
 	};
 
-	const handleConsume = (index: number, foodRegisterId: number) => {
-		setItems((prev) => prev.filter((_, i) => i !== index));
-		consumeFood(foodRegisterId);
+	const handleConsume = async (foodRegisterId: number) => {
+		await consumeFood(foodRegisterId);
+		fetchItems();
 	};
 
 	return (
@@ -187,6 +104,7 @@ const MyFridge = () => {
 							(item) =>
 								(selectedTab === '전체' || item.storageMethod === selectedTab) &&
 								item.foodName.includes(searchTerm) &&
+								item.isCompleted === '보관' &&
 								(!showOnlyExpiring || item.daysLeft <= 7)
 						)
 						.map((item, idx) => {
@@ -200,7 +118,7 @@ const MyFridge = () => {
 										<TitleContainer>
 											<Title>{item.foodName}</Title>
 										</TitleContainer>
-										<CheckContainer onClick={() => handleConsume(idx, item.foodRegisterId)}>
+										<CheckContainer onClick={() => handleConsume(item.foodRegisterId)}>
 											<CheckSVG width={18} />
 										</CheckContainer>
 									</CardHeader>
