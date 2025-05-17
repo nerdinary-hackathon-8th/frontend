@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import FoodCard from "./FoodCard";
 
 export default function FoodList() {
-      const navigate = useNavigate();
+    const navigate = useNavigate();
     const [currentId, setCurrentId] = useState<number | null>(null);
 
     // 임시 더미 데이터 (FoodCard를 위한 아이디와 이름 등)
@@ -24,11 +24,6 @@ export default function FoodList() {
         { id: 12, name: "기타", icon: "/path/to/seafood.png" },
     ];
 
-    const handleCardClick = (id: number) => {
-        setCurrentId(id);
-        // 필요한 추가 로직 가능
-    };
-
     return (
         <div className={styles.page}>
             <p className={styles.title}>카테고리를 클릭하고, 음식을 추가해보세요!</p>
@@ -41,7 +36,9 @@ export default function FoodList() {
                             name={card.name}
                             icon={card.icon}
                             isSelected={card.id === currentId}
-                            onClick={() => navigate(``)}
+                            onClick={() => {
+                                navigate(`/register-food/${card.id}`, { state: card.name });
+                            }}
                         />
                     ))}
                 </div>

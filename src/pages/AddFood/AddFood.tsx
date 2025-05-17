@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import FoodList from "../../components/FoodList/FoodList";
 
+
 const Page = styled.div`
     position: fixed;
     top: 0;
@@ -14,7 +15,7 @@ const Header = styled.div`
     left: 0;
     right: 0;
     position: relative;
-    height: 120px;
+    height: 100px;
     color: white;
     font-weight: 600;
     font-size: 20px;
@@ -26,6 +27,8 @@ const Header = styled.div`
 `;
 
 const AddFood = () => {
+
+
     return (
         <Page>
             <Header>음식추가</Header>

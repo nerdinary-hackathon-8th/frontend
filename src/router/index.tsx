@@ -11,7 +11,7 @@ const webPath = {
     login: () => "/login",
     signup: () => "/signup",
     addfood: () => "/addfood",
-    registerfood: () => "/register-food",
+    registerfood: () => "/register-food/:id",
 };
 
 const routes = [

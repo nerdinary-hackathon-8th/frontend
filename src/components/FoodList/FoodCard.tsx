@@ -40,9 +40,9 @@ interface FoodCardProps {
 
 export default function FoodCard({ id, name, icon, isSelected, onClick }: FoodCardProps) {
     return (
-        <FoodBox>
+        <FoodBox onClick={onClick}>
             <FoodImage src={FoodExample} />
-            <FoodName>해산물</FoodName>
+            <FoodName>{name}</FoodName>
         </FoodBox>
     );
 }
