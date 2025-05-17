@@ -12,6 +12,9 @@ import MilkSVG from '@assets/foodCategories/milk.svg?react';
 import ProcessedFoodSVG from '@assets/foodCategories/processedFood.svg?react';
 import SnackSVG from '@assets/foodCategories/snack.svg?react';
 import VegetableSVG from '@assets/foodCategories/vegetable.svg?react';
+import ZomiryoSVG from '@assets/foodCategories/zomiryo.svg?react';
+import NutSVG from '@assets/foodCategories/nut.svg?react';
+
 import { consumeFood, getFoods } from '@controllers/api';
 import { theme } from '@styles/themes';
 import type { getFoodResponse } from '@controllers/api.Prop';
@@ -20,13 +23,15 @@ const iconMapper = (category: string): JSX.Element => {
 	const map: Record<string, JSX.Element> = {
 		유제품: <MilkSVG />,
 		채소: <VegetableSVG />,
-		육류: <MeatSVG />,
+		'축산/계란': <MeatSVG />,
 		과일: <FruitSVG />,
 		해산물: <FishSVG />,
-		과자: <SnackSVG />,
+		'과자/시리얼': <SnackSVG />,
+		'조미료/향신료': <ZomiryoSVG />,
 		가공식품: <ProcessedFoodSVG />,
-		조미료: <CondimentSVG />,
-		밀키트: <MealkitSVG />,
+		건강식품: <CondimentSVG />,
+		'간편식/밀키트': <MealkitSVG />,
+		견과류: <NutSVG />,
 	};
 
 	return map[category] || <VegetableSVG />;
