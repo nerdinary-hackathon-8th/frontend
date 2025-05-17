@@ -65,7 +65,7 @@ const SubText = styled.h2`
 	margin-top: 12px;
 	color: black;
 	text-align: center;
-	font-size: 20px;
+	font-size: 22px;
 	font-weight: 800;
 	line-height: 1.4;
 
