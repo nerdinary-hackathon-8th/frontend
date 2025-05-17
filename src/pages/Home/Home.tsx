@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
 import styled from '@emotion/styled';
 import MyFridge from '../../components/MyFridge/MyFridge';
-import ProfileSVG from '@assets/profile.svg?react';
+
 import SpeedSVG from '@assets/speed.svg?react';
 import FloatingButtonSVG from '@assets/floatingButton.svg?react';
+import backgroundImage from '@assets/homeBackScreen.png';
+import profileImage from '@assets/profile.png';
+
 import { useNavigate } from 'react-router-dom';
 
 const recommendations = [
@@ -33,9 +36,9 @@ const Home = () => {
 			<LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
 			<Header>
 				<LeftText>
-					<BoldText>안녕하세요!</BoldText>
+					<BoldText>냉집사</BoldText>
 					<RegularText>
-						나는 당신을 도와줄 <strong>냉곰</strong>이에요!
+						당신의 냉장고를 대신 관리해줄 <strong>냉꼼</strong>이에요!
 					</RegularText>
 					<StrongText>
 						냉장고만 잘 챙겨도,
@@ -44,7 +47,7 @@ const Home = () => {
 					</StrongText>
 				</LeftText>
 				<CharacterCircle>
-					<StyledProfileSVG />
+					<StyledProfile src={profileImage} />
 				</CharacterCircle>
 			</Header>
 			<RecommendationCard>
@@ -62,7 +65,8 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div`
-	background: linear-gradient(180deg, #9aeb6f 0%, #4da723 100%);
+	background: url(${backgroundImage}) no-repeat center 0px, linear-gradient(180deg, #9aeb6f 0%, #4da723 100%);
+	background-size: cover;
 	display: flex;
 	flex-direction: column;
 	min-height: 60vh;
@@ -74,7 +78,7 @@ const LogoutButton = styled.button`
 	right: 16px;
 	background-color: white;
 	color: #00a000;
-	border: 1px solid #00a000;
+	border: 2px solid #00a000;
 	border-radius: 20px;
 	padding: 4px 12px;
 	font-size: 12px;
@@ -98,7 +102,7 @@ const LeftText = styled.div`
 `;
 
 const BoldText = styled.div`
-	font-size: 24px;
+	font-size: 27px;
 	font-weight: bold;
 `;
 
@@ -112,19 +116,17 @@ const StrongText = styled.div`
 	line-height: 1.4;
 `;
 const CharacterCircle = styled.div`
-	width: 96px;
-	height: 96px;
-	border-radius: 36px;
-	background-color: white;
+	width: 151px;
+	height: 120px;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-end;
 `;
 
-const StyledProfileSVG = styled(ProfileSVG)`
-	width: 80px;
-	height: 80px;
+const StyledProfile = styled.img`
+	width: 80%;
+	height: auto;
 	object-fit: contain;
 `;
 
@@ -132,7 +134,7 @@ const RecommendationCard = styled.div`
 	background-color: white;
 	border-radius: 16px;
 	padding: 16px;
-	margin: 50px 16px 16px;
+	margin: 16px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 `;
 

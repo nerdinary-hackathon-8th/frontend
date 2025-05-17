@@ -1,6 +1,6 @@
 // src/controllers/api.ts
 
-const API_BASE_URL = 'http://3.37.12.45:8080';
+const API_BASE_URL = 'https://goodluckynews.store';
 
 interface JoinRequest {
 	email: string;
