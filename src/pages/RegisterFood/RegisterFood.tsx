@@ -6,6 +6,7 @@ import DateSelect from "../../components/RegisterFood/DateSelect";
 import StorageSelector from "../../components/RegisterFood/StorageSelector";
 import { useNavigate } from "react-router-dom";
 import BackButtonImg from "../../assets/back.png";
+import Bubble from "../../assets/addfood/Bubble.png";
 
 const Page = styled.div`
     width: 100%;
@@ -39,6 +40,13 @@ const Header = styled.div`
     text-align: center;
     user-select: none;
     background: linear-gradient(180deg, #9aeb70 0%, #54a731 100%);
+`;
+
+const Icon = styled.img`
+    position: absolute;
+    left: 25px;
+    top: 45px;
+    width: 300px;
 `;
 
 const BackButton = styled.img`
@@ -107,11 +115,12 @@ export default function RegisterFood() {
                 <Title>
                     <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
                     {name}
+                    <Icon src={Bubble} />
                 </Title>
                 <Image src={icon} />
             </Header>
             <FoodName onChange={(e) => setFoodName(e.target.value)} />
-            <Divider style={{ marginTop: "20px", marginBottom:"10px" }} />
+            <Divider style={{ marginTop: "20px", marginBottom: "10px" }} />
             <DateWrapper>
                 <DateSelect
                     label="구매일"
