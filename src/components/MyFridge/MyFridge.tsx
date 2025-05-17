@@ -4,6 +4,154 @@ import FridgeSVG from '@assets/Refrigenerator.svg?react';
 import CheckSVG from '@assets/check.svg?react';
 import CarrotSVG from '@assets/carrot.svg?react';
 
+type Item = {
+	foodName: string;
+	foodCategory: string;
+	purchaseDate: string;
+	expirationDate: string;
+	storageMethod: string;
+	isSoon: boolean;
+};
+
+const mockItems: Item[] = [
+	{
+		foodName: '대파',
+		foodCategory: '채소',
+		purchaseDate: '2025-05-01',
+		expirationDate: '2025-05-17',
+		storageMethod: '실외',
+		isSoon: true,
+	},
+	{
+		foodName: '달걀',
+		foodCategory: '계란/유제품',
+		purchaseDate: '2025-05-05',
+		expirationDate: '2025-06-10',
+		storageMethod: '실외',
+		isSoon: true,
+	},
+	{
+		foodName: '우유',
+		foodCategory: '계란/유제품',
+		purchaseDate: '2025-05-10',
+		expirationDate: '2025-05-10',
+		storageMethod: '냉장',
+		isSoon: true,
+	},
+	{
+		foodName: '만두',
+		foodCategory: '냉동식품',
+		purchaseDate: '2025-05-02',
+		expirationDate: '2025-05-31',
+		storageMethod: '냉동',
+		isSoon: false,
+	},
+	{
+		foodName: '소고기',
+		foodCategory: '육류',
+		purchaseDate: '2025-05-03',
+		expirationDate: '2025-06-01',
+		storageMethod: '냉동',
+		isSoon: false,
+	},
+];
+const calculateDday = (expirationDate: string) => {
+	const today = new Date();
+	const expiry = new Date(expirationDate);
+	const diffTime = expiry.getTime() - today.getTime();
+	const result = -Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+	return result;
+};
+const MyFridge = () => {
+	const [expanded, setExpanded] = useState(false);
+	const [selectedTab, setSelectedTab] = useState('전체');
+	const [searchTerm, setSearchTerm] = useState('');
+	const [showOnlyExpiring, setShowOnlyExpiring] = useState(false);
+	const startYRef = useRef<number | null>(null);
+	const [items, setItems] = useState<Item[]>([]);
+
+	useEffect(() => {
+		(async () => {
+			const data = await mockItems;
+			setItems(data);
+		})();
+	}, []);
+
+	const handleTouchStart = (e: React.TouchEvent) => {
+		startYRef.current = e.touches[0].clientY;
+	};
+
+	const handleTouchEnd = (e: React.TouchEvent) => {
+		if (startYRef.current === null) return;
+		const endY = e.changedTouches[0].clientY;
+		const deltaY = endY - startYRef.current;
+		if (deltaY < -50) setExpanded(true);
+		else if (deltaY > 50) setExpanded(false);
+		startYRef.current = null;
+	};
+
+	const handleConsume = (index: number) => {
+		setItems((prev) => prev.filter((_, i) => i !== index));
+	};
+
+	return (
+		<DraggableContainer expanded={expanded} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+			<TopBar />
+			<ScrollContainer>
+				<Header>
+					<FridgeIcon />
+					<TitleText>나만의 냉장고</TitleText>
+				</Header>
+				<SearchInput type="text" placeholder="냉장고에 저장된 식품을 검색해보세요" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+				<TabList>
+					<TabButtons>
+						{['전체', '실외', '냉장', '냉동'].map((tab) => (
+							<Tab key={tab} active={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
+								{tab}
+							</Tab>
+						))}
+					</TabButtons>
+					<FilterButton active={showOnlyExpiring} onClick={() => setShowOnlyExpiring((prev) => !prev)}>
+						소비기한임박
+					</FilterButton>
+				</TabList>
+				<Grid>
+					{items
+						.filter(
+							(item) =>
+								(selectedTab === '전체' || item.storageMethod === selectedTab) && item.foodName.includes(searchTerm) && (!showOnlyExpiring || item.isSoon)
+						)
+						.map((item, idx) => {
+							const dday = calculateDday(item.expirationDate);
+							const displayDday = dday === 0 ? 'D-DAY' : `D${dday > 0 ? '+' + dday : dday}`;
+
+							return (
+								<ItemCard key={idx}>
+									<CardHeader>
+										<CarrotContainer>
+											<CarrotSVG />
+										</CarrotContainer>
+										<TitleContainer>
+											<Title>{item.foodName}</Title>
+										</TitleContainer>
+										<CheckContainer onClick={() => handleConsume(idx)}>
+											<CheckSVG width={18} />
+										</CheckContainer>
+									</CardHeader>
+									<Expiry>소비기한 : {item.expirationDate}</Expiry>
+									<Countdown imminent={dday > -7}>{displayDday}</Countdown>
+								</ItemCard>
+							);
+						})}
+				</Grid>
+			</ScrollContainer>
+		</DraggableContainer>
+	);
+};
+
+export default MyFridge;
+
 const DraggableContainer = styled.div<{ expanded: boolean }>`
 	position: fixed;
 	bottom: 0;
@@ -16,12 +164,12 @@ const DraggableContainer = styled.div<{ expanded: boolean }>`
 	box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 	transition: height 0.3s ease;
 	overflow: hidden;
-	padding: 24px 0 0 0;
+	padding: 12px 0 0 0;
 `;
 
 const TopBar = styled.div`
-	width: 40px;
-	height: 5px;
+	width: 60px;
+	height: 3px;
 	background-color: #ccc;
 	border-radius: 3px;
 	margin: 8px auto 0 auto;
@@ -54,18 +202,19 @@ const Expiry = styled.div`
 	color: #666;
 `;
 
-const Countdown = styled.div`
+const Countdown = styled.div<{ imminent: boolean }>`
 	font-size: 16px;
-	color: #00a000;
+	color: ${({ imminent }) => (imminent ? '#ff703c' : '#00A400')};
 	font-weight: bold;
 	text-align: right;
 `;
 
 const Tab = styled.div<{ active: boolean }>`
-	font-weight: bold;
+	font-weight: ${({ active }) => (active ? '700' : '400')};
 	color: ${({ active }) => (active ? '#00a000' : '#d1d1d1')};
+
 	border-bottom: 2px solid ${({ active }) => (active ? '#00a000' : 'transparent')};
-	padding: 8px 12px;
+	padding: 8px 0px;
 	cursor: pointer;
 `;
 
@@ -82,7 +231,7 @@ const TabButtons = styled.div`
 `;
 
 const SearchInput = styled.input`
-	margin: 0 16px 16px;
+	margin: 0 16px;
 	padding: 12px 16px;
 	width: calc(100% - 32px);
 	border-radius: 12px;
@@ -125,108 +274,23 @@ const CheckContainer = styled.div`
 	align-items: center;
 `;
 
-const CheckboxRow = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 6px;
-	margin: 0 16px 12px;
-	font-size: 14px;
-	color: #d1d1d1;
+const FilterButton = styled.button<{ active: boolean }>`
+	background-color: ${({ active }) => (active ? '#fff' : '#f8f8f8')};
+	border: 1px solid ${({ active }) => (active ? '#ff703c' : '#ccc')};
+	color: ${({ active }) => (active ? '#ff703c' : '#ccc')};
+	border-radius: 16px;
+	padding: 4px 12px;
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
 `;
-
-const MyFridge = () => {
-	const [expanded, setExpanded] = useState(false);
-	const [selectedTab, setSelectedTab] = useState('전체');
-	const [searchTerm, setSearchTerm] = useState('');
-	const [showOnlyExpiring, setShowOnlyExpiring] = useState(false);
-	const startYRef = useRef<number | null>(null);
-	const [items, setItems] = useState<typeof mockItems>([]);
-
-	const fetchData = async () => {
-		const data = await mockItems;
-		setItems(data);
-	};
-
-	useEffect(() => {
-		fetchData();
-	}, []);
-
-	const handleTouchStart = (e: React.TouchEvent) => {
-		startYRef.current = e.touches[0].clientY;
-	};
-
-	const handleTouchEnd = (e: React.TouchEvent) => {
-		if (startYRef.current === null) return;
-		const endY = e.changedTouches[0].clientY;
-		const deltaY = endY - startYRef.current;
-		if (deltaY < -50) setExpanded(true);
-		else if (deltaY > 50) setExpanded(false);
-		startYRef.current = null;
-	};
-	const handleConsume = (index: number) => {
-		const updated = items.filter((_, i) => i !== index);
-		setItems(updated);
-		setTimeout(fetchData, 500); // simulate re-fetch
-	};
-
-	const filtered = items.filter(
-		(item) => (selectedTab === '전체' || item.type === selectedTab) && item.name.includes(searchTerm) && (!showOnlyExpiring || item.isSoon)
-	);
-
-	return (
-		<DraggableContainer expanded={expanded} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-			<TopBar />
-			<ScrollContainer>
-				<Header>
-					<FridgeIcon />
-					<TitleText>나만의 냉장고</TitleText>
-				</Header>
-				<SearchInput type="text" placeholder="냉장고에 저장된 식품을 검색해보세요" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-
-				<TabList>
-					<TabButtons>
-						{['전체', '실외', '냉장', '냉동'].map((tab) => (
-							<Tab key={tab} active={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
-								{tab}
-							</Tab>
-						))}
-					</TabButtons>
-					<CheckboxRow>
-						<input type="checkbox" checked={showOnlyExpiring} onChange={() => setShowOnlyExpiring((prev) => !prev)} />
-						소비기한임박
-					</CheckboxRow>
-				</TabList>
-				<Grid>
-					{filtered.map((item, idx) => (
-						<ItemCard key={idx}>
-							<CardHeader>
-								<CarrotContainer>
-									<CarrotSVG />
-								</CarrotContainer>
-								<TitleContainer>
-									<Title>{item.name}</Title>
-								</TitleContainer>
-								<CheckContainer onClick={() => handleConsume(idx)}>
-									<CheckSVG width={18} />
-								</CheckContainer>
-							</CardHeader>
-							<Expiry>소비기한 : {item.expiry}</Expiry>
-							<Countdown>D-3</Countdown>
-						</ItemCard>
-					))}
-				</Grid>
-			</ScrollContainer>
-		</DraggableContainer>
-	);
-};
-
-export default MyFridge;
 
 const Header = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	padding: 16px;
+	padding: 12px;
 `;
 
 const FridgeIcon = styled(FridgeSVG)`
@@ -239,11 +303,3 @@ const TitleText = styled.h2`
 	font-weight: bold;
 	margin: 0;
 `;
-
-const mockItems = [
-	{ name: '대파', type: '전체', expiry: '2025-00-00', isSoon: true },
-	{ name: '대파', type: '실외', expiry: '2025-00-00', isSoon: true },
-	{ name: '대파', type: '냉장', expiry: '2025-00-00', isSoon: false },
-	{ name: '대파', type: '냉동', expiry: '2025-00-00', isSoon: false },
-	{ name: '대파', type: '냉동', expiry: '2025-00-00', isSoon: true },
-];
