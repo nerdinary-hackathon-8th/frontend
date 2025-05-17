@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useEffect } from "react";
 
 const Container = styled.div`
     display: flex;
@@ -31,7 +32,7 @@ const DateInput = styled.input`
     border: none;
     outline: none;
     background: transparent;
-    font-size: 18px;
+    font-size: 14px;
     text-align: center;
     width: 140px;
 `;
@@ -76,6 +77,21 @@ export default function DateSelect({
     checkboxChecked = false,
     placeholder,
 }: DateSelect) {
+
+    const getTodayDateString = () => {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+        return `${yyyy}-${mm}-${dd}`;
+    };
+
+    useEffect(() => {
+        if (label === "구매일" && !dateValue) {
+            onDateChange(getTodayDateString());
+        }
+    }, [label, dateValue, onDateChange]);
+
     return (
         <Container>
             <Label>{label}</Label>
@@ -83,6 +99,8 @@ export default function DateSelect({
             <InputWrapper>
                 <DateInput
                     type="date"
+                    min="1900-01-01"
+                    max="2099-12-31"
                     value={dateValue}
                     onChange={(e) => onDateChange(e.target.value)}
                 />
