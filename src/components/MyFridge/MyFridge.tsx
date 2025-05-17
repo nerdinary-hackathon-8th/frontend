@@ -199,8 +199,8 @@ const MyFridge = () => {
 											<CheckSVG width={18} />
 										</CheckContainer>
 									</CardHeader>
-									<Expiry>소비기한 : {item.expirationDate || Date()} </Expiry>
-									<Countdown imminent={dayLeft <= 7}>{displayDday}</Countdown>
+									<Expiry>소비기한 : {item.expirationDate} </Expiry>
+									<Countdown imminent={dayLeft > -7}>{displayDday}</Countdown>
 								</ItemCard>
 							);
 						})}

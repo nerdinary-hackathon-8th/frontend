@@ -107,10 +107,9 @@ export const registerFood = async (data: RegisterFoodRequest): Promise<RegisterF
 };
 
 export const consumeFood = async (foodRegisterId: number): Promise<void> => {
-	const response = await customFetch(`${API_BASE_URL}/api/foods/consume`, {
+	const response = await customFetch(`${API_BASE_URL}/api/foods/consume?foodRegisterId=${foodRegisterId}`, {
 		method: 'PUT',
 		headers: jsonHeaders,
-		body: JSON.stringify({ foodRegisterId }),
 	});
 
 	if (!response.ok) {
