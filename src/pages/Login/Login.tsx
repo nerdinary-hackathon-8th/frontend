@@ -50,7 +50,7 @@ const LoginBox = styled.div`
 
 const LoginButton = styled.button`
 	margin-top: 30px;
-	width: 70%;
+	width: calc(100vw - 40px);
 	padding: 14px 0;
 	background-color: #00a000;
 	color: white;

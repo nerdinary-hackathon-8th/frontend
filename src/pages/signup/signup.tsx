@@ -4,6 +4,7 @@ import { login, join } from '../../controllers/api';
 import { useNavigate } from 'react-router-dom';
 
 import LogoSVG from '@assets/logo.svg?react';
+import { theme } from '@styles/themes';
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -64,17 +65,16 @@ const Container = styled.div`
 `;
 
 const LoginBox = styled.div`
-	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 150px;
+	padding-top: 90px;
 	box-sizing: border-box;
 `;
 
 const Label = styled.label`
-	width: 80%;
+	width: calc(100vw - 40px);
 	margin-top: 20px;
 	margin-bottom: 6px;
 	color: #009b00;
@@ -83,18 +83,18 @@ const Label = styled.label`
 `;
 
 const InputBox = styled.input`
-	width: 75%;
+	width: 80%;
 	padding: 12px 16px;
-	border: none;
+	border: 1px solid ${theme.colors.gray2};
 	border-radius: 10px;
-	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
 	font-size: 14px;
 	outline: none;
 `;
 
 const SubmitButton = styled.button`
 	margin-top: 30px;
-	width: 70%;
+
+	width: calc(100vw - 40px);
 	padding: 14px 0;
 	background-color: #00a000;
 	color: white;
