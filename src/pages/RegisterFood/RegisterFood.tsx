@@ -60,7 +60,7 @@ const RegisterButton = styled.button`
 
 export default function RegisterFood() {
     const { id } = useParams<{ id: string }>();
-
+    console.log(id)
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -69,6 +69,8 @@ export default function RegisterFood() {
     const [purchaseDate, setPurchaseDate] = useState<string>("");
     const [expiryDate, setExpiryDate] = useState<string>("");
     const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
+
+    console.log(foodName)
 
     const handleStorageChange = (value: number) => {
         console.log("보관 id값:", value);
