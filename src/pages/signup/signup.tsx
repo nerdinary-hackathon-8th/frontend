@@ -1,15 +1,40 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import { login, join } from '../../controllers/api';
 
 const Signup = () => {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const handleSubmit = async () => {
+		try {
+			await login({ email, password });
+			console.log('로그인 성공');
+		} catch (loginError) {
+			console.warn('로그인 실패:', loginError);
+			try {
+				const res = await join({ email, password });
+				console.log('회원가입 성공, 로그인 재시도');
+				const accessToken = res.accessToken;
+				const refreshToken = res.refreshToken;
+
+				localStorage.setItem('accessToken', accessToken);
+				localStorage.setItem('accessToken', refreshToken);
+			} catch (joinError) {
+				console.error('회원가입 실패:', joinError);
+			}
+		}
+	};
+
 	return (
 		<Container>
 			<LoginBox>
 				<ProfileCircle>로고</ProfileCircle>
 				<Label>이메일</Label>
-				<InputBox />
+				<InputBox value={email} onChange={(e) => setEmail(e.target.value)} />
 				<Label>비밀번호</Label>
-				<InputBox />
-				<SubmitButton>완료</SubmitButton>
+				<InputBox type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+				<SubmitButton onClick={handleSubmit}>완료</SubmitButton>
 			</LoginBox>
 		</Container>
 	);

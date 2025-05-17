@@ -95,7 +95,7 @@ const RecommendationTitle = styled.div`
 	font-weight: bold;
 	margin-bottom: 8px;
 	font-size: 16px;
-	color: #00a000;
+	color: #00a400;
 	display: flex;
 	align-items: center;
 	gap: 8px;

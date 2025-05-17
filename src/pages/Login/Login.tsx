@@ -9,9 +9,12 @@ const Login = () => {
 	return (
 		<Container>
 			<LoginBox>
+				<SubText>
+					냉곰이 키우고,
+					<br /> 냉장고도 관리하자!
+				</SubText>
 				<ProfileCircle>로고</ProfileCircle>
 				<LoginButton onClick={handleLogin}>로그인/회원가입</LoginButton>
-				<SubText>냉곰이 키우고, 냉장고도 관리하자!</SubText>
 				<Footer>탄소절감단체 너디너디8th Corp.</Footer>
 			</LoginBox>
 		</Container>
@@ -21,7 +24,6 @@ const Login = () => {
 export default Login;
 
 const Container = styled.div`
-	background: linear-gradient(180deg, #8fe26a 0%, #60c24b 100%);
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
@@ -51,25 +53,27 @@ const ProfileCircle = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #218c2c;
+	color: #00a400;
 	font-weight: bold;
 `;
 
 const LoginButton = styled.button`
-	margin-top: 40px;
-	padding: 16px 80px;
-	background-color: white;
-	color: #218c2c;
+	margin-top: 30px;
+	width: 70%;
+	padding: 14px 0;
+	background-color: #00a000;
+	color: white;
 	font-weight: bold;
+	font-size: 15px;
 	border: none;
-	border-radius: 12px;
-	font-size: 18px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
-const SubText = styled.div`
+const SubText = styled.h2`
 	margin-top: 12px;
-	color: white;
-	font-size: 12px;
+	color: black;
+	text-align: center;
 `;
 
 const Footer = styled.div`
