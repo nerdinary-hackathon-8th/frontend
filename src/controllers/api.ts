@@ -16,7 +16,7 @@ async function customFetch(input: RequestInfo, init?: RequestInit): Promise<Resp
 
 	const response = await fetch(input, { ...init, headers });
 
-	if (response.status === 401) {
+	if (response.status === 400) {
 		// try reissue
 		const refreshToken = localStorage.getItem('refreshToken');
 		if (!refreshToken) throw new Error('No refresh token');
@@ -91,7 +91,7 @@ export const getFoods = async (): Promise<getFoodResponse[]> => {
 };
 
 export const registerFood = async (data: RegisterFoodRequest): Promise<RegisterFoodResponse> => {
-	const response = await fetch(`${API_BASE_URL}/api/foods/register`, {
+	const response = await customFetch(`${API_BASE_URL}/api/foods/register`, {
 		method: 'POST',
 		headers: jsonHeaders,
 		body: JSON.stringify(data),
@@ -106,11 +106,11 @@ export const registerFood = async (data: RegisterFoodRequest): Promise<RegisterF
 	return result;
 };
 
-export const consumeFood = async (foodName: number): Promise<void> => {
+export const consumeFood = async (foodRegisterId: number): Promise<void> => {
 	const response = await customFetch(`${API_BASE_URL}/api/foods/consume`, {
 		method: 'PUT',
 		headers: jsonHeaders,
-		body: JSON.stringify({ foodName }),
+		body: JSON.stringify({ foodRegisterId }),
 	});
 
 	if (!response.ok) {

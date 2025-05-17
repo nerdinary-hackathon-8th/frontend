@@ -127,6 +127,7 @@ const MyFridge = () => {
 		(async () => {
 			const data = await getFoods();
 			// const data = await mockItems;
+			console.log(data);
 			setItems(data);
 		})();
 	}, []);
@@ -184,7 +185,8 @@ const MyFridge = () => {
 								(!showOnlyExpiring || item.daysLeft <= 7)
 						)
 						.map((item, idx) => {
-							const displayDday = item.daysLeft === 0 ? 'D-DAY' : `D${item.daysLeft > 0 ? `+${item.daysLeft}` : item.daysLeft}`;
+							const dayLeft = -item.daysLeft;
+							const displayDday = dayLeft === 0 ? 'D-DAY' : `D${dayLeft > 0 ? `+${dayLeft}` : dayLeft}`;
 
 							return (
 								<ItemCard key={idx}>
@@ -198,7 +200,7 @@ const MyFridge = () => {
 										</CheckContainer>
 									</CardHeader>
 									<Expiry>소비기한 : {item.expirationDate || Date()} </Expiry>
-									<Countdown imminent={item.daysLeft >= -7}>{displayDday}</Countdown>
+									<Countdown imminent={dayLeft <= 7}>{displayDday}</Countdown>
 								</ItemCard>
 							);
 						})}
