@@ -5,6 +5,7 @@ import FoodExample from "../../assets/foodExample.png";
 import { useState } from "react";
 import DateSelect from "../../components/RegisterFood/DateSelect";
 import StorageSelector from "../../components/RegisterFood/StorageSelector";
+import { useNavigate } from "react-router-dom";
 
 const Page = styled.div`
     width: 100%;
@@ -55,10 +56,13 @@ const RegisterButton = styled.button`
     color: white;
     border: none;
     margin-top: 25px;
-`
+`;
 
 export default function RegisterFood() {
     const { id } = useParams<{ id: string }>();
+
+    const navigate = useNavigate();
+
     const location = useLocation();
     const name = location.state as string;
     const [foodName, setFoodName] = useState<string>("");
@@ -95,7 +99,10 @@ export default function RegisterFood() {
                 />
             </DateWrapper>
             <StorageSelector onChange={handleStorageChange} />
-            <RegisterButton>음식 추가</RegisterButton>
+            {/* TODO : 입력 완료 체크 */}
+            <RegisterButton onClick={() => navigate("/finish-register-food")}>
+                음식 추가
+            </RegisterButton>
         </Page>
     );
 }

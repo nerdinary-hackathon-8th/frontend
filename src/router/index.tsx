@@ -6,12 +6,14 @@ import Home from "../pages/Home/Home";
 import Signup from "../pages/signup/signup";
 import AddFood from "../pages/AddFood/AddFood";
 import RegisterFood from "../pages/RegisterFood/RegisterFood";
+import FinishRegisterFood from "../pages/FinishRegisterFood/FinishRegisterFood";
 
 const webPath = {
     login: () => "/login",
     signup: () => "/signup",
     addfood: () => "/addfood",
     registerfood: () => "/register-food/:id",
+    finishregisterfood: () => "/finish-register-food",
 };
 
 const routes = [
@@ -37,7 +39,10 @@ const routes = [
         path: webPath.registerfood(),
         element: <RegisterFood />,
     },
-
+    {
+        path: webPath.finishregisterfood(),
+        element: <FinishRegisterFood />,
+    },
 ];
 
 export const router = createBrowserRouter(routes);
