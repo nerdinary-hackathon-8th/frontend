@@ -7,6 +7,8 @@ import StorageSelector from "../../components/RegisterFood/StorageSelector";
 import { useNavigate } from "react-router-dom";
 import BackButtonImg from "../../assets/back.png";
 import Bubble from "../../assets/addfood/Bubble.png";
+import { registerFood } from "../../controllers/api";
+import type { RegisterFoodRequest } from "../../controllers/api.Prop";
 
 const Page = styled.div`
     width: 100%;
@@ -102,10 +104,39 @@ export default function RegisterFood() {
     const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
     const [storageMethod, setStorageMethod] = useState<string>("");
 
-    console.log(foodName, category, purchaseDate, expirationDate, storageMethod);
+    // console.log(foodName, category, purchaseDate, expirationDate, storageMethod);
+
+    const data: RegisterFoodRequest = {
+        foodName: foodName,
+        foodCategory: category,
+        purchaseDate,
+        expirationDate: isExpiryUnknown ? null : expirationDate,
+        storageMethod,
+    };
+
+    console.log(data);
 
     const handleStorageChange = (value: string) => {
         setStorageMethod(value);
+    };
+
+    const handleFoodSubmit = async () => {
+        if ((!expirationDate || expirationDate === "") && !isExpiryUnknown) {
+            alert("소비기한을 입력해주세요");
+            return;
+        }
+
+        if (!foodName || !category || !purchaseDate || !storageMethod) {
+            alert("입력사항을 모두 입력해주세요");
+            return;
+        }
+
+        try {
+            await registerFood(data);
+            navigate("/finish-register-food");
+        } catch (error: any) {
+            alert(error.message || "등록 중 오류가 발생했습니다.");
+        }
     };
 
     return (
@@ -143,9 +174,7 @@ export default function RegisterFood() {
             <StorageSelector onChange={handleStorageChange} />
             {/* TODO : 입력 완료 체크 */}
             <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "5px" }}>
-                <RegisterButton onClick={() => navigate("/finish-register-food")}>
-                    음식 추가
-                </RegisterButton>
+                <RegisterButton onClick={handleFoodSubmit}>식품 추가하기</RegisterButton>
             </div>
         </Page>
     );
