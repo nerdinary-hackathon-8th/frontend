@@ -172,7 +172,6 @@ const MyFridge = () => {
 	return (
 		<DraggableContainer expanded={expanded} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
 			<TopBar />
-
 			<ScrollContainer>
 				<Header>
 					<FridgeIcon />
