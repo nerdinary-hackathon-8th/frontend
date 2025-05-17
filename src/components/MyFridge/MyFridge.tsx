@@ -275,9 +275,9 @@ const CheckContainer = styled.div`
 `;
 
 const FilterButton = styled.button<{ active: boolean }>`
-	background-color: ${({ active }) => (active ? '#fff' : '#f8f8f8')};
-	border: 1px solid ${({ active }) => (active ? '#ff703c' : '#ccc')};
-	color: ${({ active }) => (active ? '#ff703c' : '#ccc')};
+	background-color: ${({ active }) => (active ? '#FF9D79' : '#FFFFFF')};
+	border: 1px solid #ff9d79;
+	color: ${({ active }) => (active ? '#FFFFFF' : '#FF9D79')};
 	border-radius: 16px;
 	padding: 4px 12px;
 	font-size: 13px;

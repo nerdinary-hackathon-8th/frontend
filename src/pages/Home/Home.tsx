@@ -5,15 +5,15 @@ import MyFridge from '../../components/MyFridge/MyFridge';
 import SpeedSVG from '@assets/speed.svg?react';
 import FloatingButtonSVG from '@assets/floatingButton.svg?react';
 import backgroundImage from '@assets/homeBackScreen.png';
-import profileImage from '@assets/profile.png';
+import profileSVG from '@assets/profile.svg?react';
 
 import { useNavigate } from 'react-router-dom';
 
 const recommendations = [
-	'두부는 3일 안에 소비해야 탄소를 줄일 수 있어요.',
-	'채소는 일주일 안에 다 먹으면 탄소 낭비가 없어요.',
-	'냉장고 속 재료 1개 소비 = 플라스틱 컵 2개 절약!',
-	'냉동실 털기 = 숨은 탄소 줄이기!',
+	'냉장고 속 반찬 1개만 꺼내 먹기',
+	'유통기한 임박한 재료 1개 사용하기',
+	'오늘은 장보지 않기 (있는 재료로 요리하기)',
+	'고기 대신 식물성 재료로 한 끼 요리하기',
 ];
 
 const Home = () => {
@@ -36,18 +36,18 @@ const Home = () => {
 			<LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
 			<Header>
 				<LeftText>
-					<BoldText>냉집사</BoldText>
+					<BoldText>냉집사의 환영인사</BoldText>
 					<RegularText>
 						당신의 냉장고를 대신 관리해줄 <strong>냉꼼</strong>이에요!
 					</RegularText>
 					<StrongText>
-						냉장고만 잘 챙겨도,
+						내 냉장고도 쉽게 챙기고,
 						<br />
-						탄소가 쑥쑥 줄어들어요!💨💚
+						지구 탄소 배출도 쑥쑥 줄여요!
 					</StrongText>
 				</LeftText>
 				<CharacterCircle>
-					<StyledProfile src={profileImage} />
+					<StyledProfile />
 				</CharacterCircle>
 			</Header>
 			<RecommendationCard>
@@ -88,7 +88,7 @@ const LogoutButton = styled.button`
 `;
 
 const Header = styled.div`
-	padding: 24px 16px 12px;
+	padding: 24px 16px 8px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -102,12 +102,12 @@ const LeftText = styled.div`
 `;
 
 const BoldText = styled.div`
-	font-size: 27px;
+	font-size: 20px;
 	font-weight: bold;
 `;
 
 const RegularText = styled.div`
-	font-size: 14px;
+	font-size: 10px;
 	line-height: 1.4;
 `;
 const StrongText = styled.div`
@@ -122,10 +122,12 @@ const CharacterCircle = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
+	margin-top: 12px;
+	padding-top: 24px;
 `;
 
-const StyledProfile = styled.img`
-	width: 80%;
+const StyledProfile = styled(profileSVG)`
+	width: 120%;
 	height: auto;
 	object-fit: contain;
 `;
@@ -134,7 +136,7 @@ const RecommendationCard = styled.div`
 	background-color: white;
 	border-radius: 16px;
 	padding: 16px;
-	margin: 16px;
+	margin: 0 16px 16px 16px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 `;
 
