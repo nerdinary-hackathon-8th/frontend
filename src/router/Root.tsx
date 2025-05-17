@@ -8,6 +8,8 @@ export default function Root() {
 		const token = localStorage.getItem('accessToken');
 		if (!token) {
 			navigate('/login');
+		} else {
+			navigate('/home');
 		}
 	}, [navigate]);
 
