@@ -2,7 +2,9 @@ import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 
 const Container = styled.div`
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
 `;
 
 const Title = styled.p`
@@ -22,8 +24,9 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button<{ selected: boolean }>`
     padding: 8px 24px;
+    width: 97px;
     border-radius: 15px;
-    border: 1.5px solid #00a36c;
+    border: 1.5px solid #959595;
     background-color: ${({ selected }) => (selected ? "#def2de" : "white")};
     color: ${({ selected }) => (selected ? "#00a36c" : "black")};
     font-weight: ${({ selected }) => (selected ? "800" : "500")};
