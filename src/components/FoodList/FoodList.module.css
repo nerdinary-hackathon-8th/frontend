@@ -3,8 +3,9 @@
     position: fixed;
     background-color: white;
     border-radius: 20px 20px 0 0;
-    height: 596px;
+    height: 576px;
     bottom: 0;
+    /* z-index: 100; */
 }
 
 .section {
