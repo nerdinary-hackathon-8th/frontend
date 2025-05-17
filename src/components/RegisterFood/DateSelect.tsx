@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Calender from "../../assets/addfood/calendar.svg";
 
 const Container = styled.div`
