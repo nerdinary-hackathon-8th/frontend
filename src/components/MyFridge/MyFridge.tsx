@@ -4,66 +4,66 @@ import FridgeSVG from '@assets/Refrigenerator.svg?react';
 import CheckSVG from '@assets/check.svg?react';
 import CarrotSVG from '@assets/carrot.svg?react';
 import SearchSVG from '@assets/search.svg?react';
+import { getFoods } from '../../controllers/api';
 
 type Item = {
 	foodName: string;
 	foodCategory: string;
-	purchaseDate: string;
 	expirationDate: string;
-	storageMethod: string;
-	isSoon: boolean;
+	storageMethod?: string;
+	daysLeft: number;
 };
 
-const mockItems: Item[] = [
-	{
-		foodName: '대파',
-		foodCategory: '채소',
-		purchaseDate: '2025-05-01',
-		expirationDate: '2025-05-17',
-		storageMethod: '실외',
-		isSoon: true,
-	},
-	{
-		foodName: '달걀',
-		foodCategory: '계란/유제품',
-		purchaseDate: '2025-05-05',
-		expirationDate: '2025-06-10',
-		storageMethod: '실외',
-		isSoon: true,
-	},
-	{
-		foodName: '우유',
-		foodCategory: '계란/유제품',
-		purchaseDate: '2025-05-10',
-		expirationDate: '2025-05-10',
-		storageMethod: '냉장',
-		isSoon: true,
-	},
-	{
-		foodName: '만두',
-		foodCategory: '냉동식품',
-		purchaseDate: '2025-05-02',
-		expirationDate: '2025-05-31',
-		storageMethod: '냉동',
-		isSoon: false,
-	},
-	{
-		foodName: '소고기',
-		foodCategory: '육류',
-		purchaseDate: '2025-05-03',
-		expirationDate: '2025-06-01',
-		storageMethod: '냉동',
-		isSoon: false,
-	},
-];
-const calculateDday = (expirationDate: string) => {
-	const today = new Date();
-	const expiry = new Date(expirationDate);
-	const diffTime = expiry.getTime() - today.getTime();
-	const result = -Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+// const mockItems: Item[] = [
+// 	{
+// 		foodName: '대파',
+// 		foodCategory: '채소',
+// 		purchaseDate: '2025-05-01',
+// 		expirationDate: '2025-05-17',
+// 		storageMethod: '실외',
+// 		isSoon: true,
+// 	},
+// 	{
+// 		foodName: '달걀',
+// 		foodCategory: '계란/유제품',
+// 		purchaseDate: '2025-05-05',
+// 		expirationDate: '2025-06-10',
+// 		storageMethod: '실외',
+// 		isSoon: true,
+// 	},
+// 	{
+// 		foodName: '우유',
+// 		foodCategory: '계란/유제품',
+// 		purchaseDate: '2025-05-10',
+// 		expirationDate: '2025-05-10',
+// 		storageMethod: '냉장',
+// 		isSoon: true,
+// 	},
+// 	{
+// 		foodName: '만두',
+// 		foodCategory: '냉동식품',
+// 		purchaseDate: '2025-05-02',
+// 		expirationDate: '2025-05-31',
+// 		storageMethod: '냉동',
+// 		isSoon: false,
+// 	},
+// 	{
+// 		foodName: '소고기',
+// 		foodCategory: '육류',
+// 		purchaseDate: '2025-05-03',
+// 		expirationDate: '2025-05-25',
+// 		storageMethod: '냉동',
+// 		isSoon: false,
+// 	},
+// ];
+// const calculateDday = (expirationDate: string) => {
+// 	const today = new Date();
+// 	const expiry = new Date(expirationDate);
+// 	const diffTime = today.getTime() - expiry.getTime();
+// 	const result = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-	return result;
-};
+// 	return result;
+// };
 const MyFridge = () => {
 	const [expanded, setExpanded] = useState(false);
 	const [selectedTab, setSelectedTab] = useState('전체');
@@ -74,7 +74,7 @@ const MyFridge = () => {
 
 	useEffect(() => {
 		(async () => {
-			const data = await mockItems;
+			const data = await getFoods();
 			setItems(data);
 		})();
 	}, []);
@@ -126,11 +126,12 @@ const MyFridge = () => {
 					{items
 						.filter(
 							(item) =>
-								(selectedTab === '전체' || item.storageMethod === selectedTab) && item.foodName.includes(searchTerm) && (!showOnlyExpiring || item.isSoon)
+								(selectedTab === '전체' || item.storageMethod === selectedTab) &&
+								item.foodName.includes(searchTerm) &&
+								(!showOnlyExpiring || item.daysLeft <= 7)
 						)
 						.map((item, idx) => {
-							const dday = calculateDday(item.expirationDate);
-							const displayDday = dday === 0 ? 'D-DAY' : `D${dday > 0 ? '+' + dday : dday}`;
+							const displayDday = item.daysLeft === 0 ? 'D-DAY' : `D${item.daysLeft > 0 ? `+${item.daysLeft}` : item.daysLeft}`;
 
 							return (
 								<ItemCard key={idx}>
@@ -146,7 +147,7 @@ const MyFridge = () => {
 										</CheckContainer>
 									</CardHeader>
 									<Expiry>소비기한 : {item.expirationDate}</Expiry>
-									<Countdown imminent={dday > -7}>{displayDday}</Countdown>
+									<Countdown imminent={item.daysLeft >= -7}>{displayDday}</Countdown>
 								</ItemCard>
 							);
 						})}

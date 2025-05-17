@@ -108,7 +108,7 @@ const BoldText = styled.div`
 `;
 
 const RegularText = styled.div`
-	font-size: 11px;
+	font-size: 12px;
 	line-height: 1.4;
 `;
 const StrongText = styled.div`
@@ -159,6 +159,6 @@ const RecommendationText = styled.div`
 
 const FloatingButton = styled(FloatingButtonSVG)`
 	position: fixed;
-	right: 24px;
-	bottom: 24px;
+	right: 20px;
+	bottom: 20px;
 `;
