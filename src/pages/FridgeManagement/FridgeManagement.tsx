@@ -85,16 +85,16 @@ export default function FridgeManagement() {
         }
         fetchMyMbti();
     }, []);
-
+    console.log(data);
     return (
         <Page>
             <Header>
                 <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
                 <Title>냉꼼이가 대신하는 냉장고 관리</Title>
             </Header>
-            <UseRatio consumptionRate={data?.consumptionRate ?? "00"} />
+            <UseRatio consumptionRate={(data?.consumptionRate ?? "0").replace("%", "")} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
-            <ExpiredProduct count={data?.nearExpiredCount || -1} />
+            <ExpiredProduct count={data?.nearExpiredCount || 0} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
             <Mission text={text.text} />
             <div style={{ marginTop: "13px", marginBottom: "13px" }}></div>
