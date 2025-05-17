@@ -8,7 +8,7 @@ const Container = styled.div`
     justify-content: space-between;
     border: 1px solid #eee;
     border-radius: 30px;
-    padding: 12px 20px;
+    padding: 7px 20px;
     background-color: white;
     box-sizing: border-box;
     width: 100%;

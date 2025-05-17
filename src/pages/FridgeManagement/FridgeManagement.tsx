@@ -7,18 +7,18 @@ import SpendType from "@components/FridgeManage/SpendType";
 import { getMyMbti } from "@controllers/api";
 import type { getMyMbtiResponse } from "@controllers/api.Prop";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Page = styled.div`
     background-color: #f8f8f8;
     height: 100%;
     min-height: 100vh;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px 20px 10px 20px;
 `;
 
 const Header = styled.div`
     position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
     height: 56px; /* 헤더 높이 지정 */
@@ -27,7 +27,7 @@ const Header = styled.div`
     justify-content: center;
     background-color: #f8f8f8;
     box-sizing: border-box;
-    padding: 0 56px; /* 양쪽 여백 확보 (백버튼 공간 포함) */
+    padding: 50px 56px 24px 56px;
     z-index: 100;
 `;
 const BackButton = styled.img`
@@ -48,16 +48,23 @@ const Divider = styled.div`
     border-bottom: 1.5px solid #f2f2f2;
 `;
 
-// consumptionRate: string; -> 확률
-// fridgeComment: string; -> 코멘트 (안씀)
-// nearExpiredCount: number; -> 개수
-// level: number;
-// typeName: string;
-// foodBTI: string;
-// foodBTIDetail: string;
-// description: string;
+const TextBox = styled.div`
+    gap: 4px;
+    padding: 24px;
+`;
+const LastText = styled.p`
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.5%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+    margin-top: 0px;
+`;
 
 export default function FridgeManagement() {
+    const navigate = useNavigate();
+
     const [data, setData] = useState<getMyMbtiResponse | null>(null);
     const [, setLoading] = useState(true);
 
@@ -79,16 +86,20 @@ export default function FridgeManagement() {
     return (
         <Page>
             <Header>
-                <BackButton src={BackButtonImg} />
+                <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
                 <Title>냉꼼이가 대신하는 냉장고 관리</Title>
             </Header>
-            <UseRatio consumptionRate={data?.consumptionRate ?? ""} />
+            <UseRatio consumptionRate={data?.consumptionRate ?? "00"} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
-            <ExpiredProduct count={data?.nearExpiredCount || 0} />
+            <ExpiredProduct count={data?.nearExpiredCount || -1} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
             <Mission />
-            <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
+            <div style={{ marginTop: "13px", marginBottom: "13px" }}></div>
             <SpendType level={data?.level || 0} mbti={data?.foodBTI || ""} />
+            <TextBox>
+                <LastText>다음 레벨로 업그레이드할 수 있어요</LastText>
+                <LastText>지구를 사랑하는 꼼꼼 살림왕이 되어봐요!</LastText>
+            </TextBox>
         </Page>
     );
 }
