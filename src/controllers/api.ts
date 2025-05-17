@@ -5,6 +5,7 @@ import type {
     getFoodResponse,
     RegisterFoodRequest,
     RegisterFoodResponse,
+    getMyMbtiResponse,
 } from "./api.Prop";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -110,4 +111,17 @@ export const registerFood = async (data: RegisterFoodRequest): Promise<RegisterF
 
     const result = await response.json();
     return result;
+};
+
+export const getMyMbti = async (): Promise<getMyMbtiResponse> => {
+    const response = await fetch(`${API_BASE_URL}/api/foods/register`, {
+        method: "GET",
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(` 실패: ${errorText}`);
+    }
+
+    return response.json();
 };

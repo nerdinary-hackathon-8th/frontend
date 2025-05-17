@@ -34,3 +34,14 @@ export interface RegisterFoodResponse {
     foodName: string;
     expirationDate: string | null;
 }
+
+export interface getMyMbtiResponse {
+    consumptionRate: string;
+    fridgeComment: string;
+    nearExpiredCount: number;
+    level: number;
+    typeName: string;
+    foodBTI: string;
+    foodBTIDetail: string;
+    description: string;
+}
