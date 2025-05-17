@@ -1,15 +1,14 @@
-import styled from "@emotion/styled";
-import { useLocation } from "react-router-dom";
-import FoodName from "../../components/RegisterFood/FoodName";
-import { useState } from "react";
-import DateSelect from "../../components/RegisterFood/DateSelect";
-import StorageSelector from "../../components/RegisterFood/StorageSelector";
-import { useNavigate } from "react-router-dom";
-import BackButtonImg from "../../assets/back.png";
-import Bubble from "../../assets/addfood/Bubble.png";
-import { registerFood } from "../../controllers/api";
-import type { RegisterFoodRequest } from "../../controllers/api.Prop";
-
+import styled from '@emotion/styled';
+import { useLocation } from 'react-router-dom';
+import FoodName from '../../components/RegisterFood/FoodName';
+import { useState } from 'react';
+import DateSelect from '../../components/RegisterFood/DateSelect';
+import StorageSelector from '../../components/RegisterFood/StorageSelector';
+import { useNavigate } from 'react-router-dom';
+import BackButtonImg from '../../assets/back.png';
+import Bubble from '../../assets/addfood/Bubble.png';
+import { registerFood } from '../../controllers/api';
+import type { RegisterFoodRequest } from '../../controllers/api.Prop';
 
 const Page = styled.div`
 	width: 100%;
@@ -105,84 +104,44 @@ export default function RegisterFood() {
 	const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
 	const [storageMethod, setStorageMethod] = useState<string>('');
 
-<<<<<<< HEAD
-    const data: RegisterFoodRequest = {
-        foodName: foodName,
-        foodCategory: category,
-        purchaseDate,
-        expirationDate: isExpiryUnknown ? null : expirationDate,
-        storageMethod,
-    };
+	const data: RegisterFoodRequest = {
+		foodName: foodName,
+		foodCategory: category,
+		purchaseDate,
+		expirationDate: isExpiryUnknown ? null : expirationDate,
+		storageMethod,
+	};
 
-    console.log(data);
-=======
-	console.log(foodName, category, purchaseDate, expirationDate, storageMethod);
->>>>>>> main
+	console.log(data);
 
 	const handleStorageChange = (value: string) => {
 		setStorageMethod(value);
 	};
 
-<<<<<<< HEAD
-    const handleFoodSubmit = async () => {
-        if ((!expirationDate || expirationDate === "") && !isExpiryUnknown) {
-            alert("소비기한을 입력해주세요");
-            return;
-        }
+	const handleFoodSubmit = async () => {
+		if ((!expirationDate || expirationDate === '') && !isExpiryUnknown) {
+			alert('소비기한을 입력해주세요');
+			return;
+		}
 
-        if (!foodName || !category || !purchaseDate || !storageMethod) {
-            alert("입력사항을 모두 입력해주세요");
-            return;
-        }
+		if (!foodName || !category || !purchaseDate || !storageMethod) {
+			alert('입력사항을 모두 입력해주세요');
+			return;
+		}
 
-        try {
-            await registerFood(data);
-            navigate("/finish-register-food");
-        } catch (error: any) {
-            alert(error.message || "등록 중 오류가 발생했습니다.");
-        }
-    };
+		try {
+			await registerFood(data);
+			navigate('/finish-register-food');
+		} catch (error) {
+			if (error instanceof Error) {
+				alert(error.message);
+			} else {
+				alert('등록 중 알 수 없는 오류가 발생했습니다.');
+			}
+			return;
+		}
+	};
 
-    return (
-        <Page>
-            <Header>
-                <Title>
-                    <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
-                    {category}
-                    <Icon src={Bubble} />
-                </Title>
-                <Image src={icon} />
-            </Header>
-            <FoodName onChange={(e) => setFoodName(e.target.value)} />
-            <Divider style={{ marginTop: "20px", marginBottom: "10px" }} />
-            <DateWrapper>
-                <DateSelect
-                    label="구매일"
-                    dateValue={purchaseDate}
-                    onDateChange={setPurchaseDate}
-                    placeholder={"오늘 기준으로 자동 설정돼요."}
-                />
-
-                <DateSelect
-                    label="소비기한"
-                    dateValue={expirationDate ?? ""}
-                    onDateChange={setExpirationDate}
-                    showCheckbox={true}
-                    checkboxLabel="소비기한이 안적혀있어요."
-                    checkboxChecked={isExpiryUnknown}
-                    onCheckboxChange={setIsExpiryUnknown}
-                    placeholder={"(구)유통기한을 입력해요."}
-                />
-            </DateWrapper>
-            <Divider style={{ marginTop: "15px" }} />
-            <StorageSelector onChange={handleStorageChange} />
-            {/* TODO : 입력 완료 체크 */}
-            <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "5px" }}>
-                <RegisterButton onClick={handleFoodSubmit}>식품 추가하기</RegisterButton>
-            </div>
-        </Page>
-    );
-=======
 	return (
 		<Page>
 			<Header>
@@ -213,9 +172,8 @@ export default function RegisterFood() {
 			<StorageSelector onChange={handleStorageChange} category={category} />
 			{/* TODO : 입력 완료 체크 */}
 			<div style={{ paddingLeft: '20px', paddingRight: '20px', paddingTop: '5px' }}>
-				<RegisterButton onClick={() => navigate('/finish-register-food')}>식품 추가</RegisterButton>
+				<RegisterButton onClick={handleFoodSubmit}>식품 추가하기</RegisterButton>
 			</div>
 		</Page>
 	);
->>>>>>> main
 }
