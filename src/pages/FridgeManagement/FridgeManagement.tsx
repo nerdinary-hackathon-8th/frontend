@@ -7,7 +7,7 @@ import SpendType from "@components/FridgeManage/SpendType";
 import { getMyMbti } from "@controllers/api";
 import type { getMyMbtiResponse } from "@controllers/api.Prop";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Page = styled.div`
     background-color: #f8f8f8;
@@ -68,6 +68,9 @@ export default function FridgeManagement() {
     const [data, setData] = useState<getMyMbtiResponse | null>(null);
     const [, setLoading] = useState(true);
 
+    const location = useLocation();
+    const text = location.state as { text: string };
+
     useEffect(() => {
         async function fetchMyMbti() {
             try {
@@ -93,7 +96,7 @@ export default function FridgeManagement() {
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
             <ExpiredProduct count={data?.nearExpiredCount || -1} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
-            <Mission />
+            <Mission text={text.text} />
             <div style={{ marginTop: "13px", marginBottom: "13px" }}></div>
             <SpendType level={data?.level || 0} mbti={data?.foodBTI || ""} />
             <TextBox>

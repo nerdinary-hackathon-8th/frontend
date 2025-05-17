@@ -7,6 +7,7 @@ import EFFS from "../../assets/mbti/EFFS.png";
 import FRGV from "../../assets/mbti/FRGV.png";
 import LCTS from "../../assets/mbti/LCTS.png";
 import WASF from "../../assets/mbti/WASF.png";
+import { useEffect, useState } from "react";
 
 const Wrapper = styled.div`
     background-color: #399128;
@@ -31,10 +32,10 @@ const Level = styled.p`
 `;
 
 const NickName = styled.p`
-     font-size: 20px;
+    font-size: 20px;
     font-weight: bold;
-    margin-top: 4.3px;
-`
+    margin-top: 4.3px;;
+`;
 const Code = styled.p`
     font-size: 14px;
     font-weight: 500;
@@ -45,14 +46,14 @@ const CharacterImg = styled.img`
     width: 230px;
 
     margin-bottom: 16px;
-    margin-top: -40px;
+    margin-top: -10px;
     margin-bottom: 0px;
 `;
 
 const Description = styled.p`
     font-size: 12px;
     font-weight: 500;
-    margin-top: -40px;
+    margin-top: -10px;
     letter-spacing: -0.5%;
     padding-left: 29px;
     padding-right: 29px;
@@ -130,13 +131,13 @@ export const consumptionRateMessages: ConsumptionRateMessage[] = [
 ];
 
 export default function SpendType({ level, mbti }: SpendTypeProps) {
-    const mbtiData = consumptionRateMessages.find((item) => item.mbti === mbti);
+    // const mbtiData = consumptionRateMessages.find((item) => item.mbti === mbti);
 
-    if (!mbtiData) {
-        return <Wrapper>소비 유형 정보를 불러올 수 없습니다.</Wrapper>;
-    }
+    // if (!mbtiData) {
+    //     return <Wrapper>소비 유형 정보를 불러올 수 없습니다.</Wrapper>;
+    // }
 
-    const { typeName, message, imgSrc } = mbtiData;
+    // const { typeName, message, imgSrc } = mbtiData;
 
     // {
     //     mbti: "EFFS",
@@ -146,22 +147,37 @@ export default function SpendType({ level, mbti }: SpendTypeProps) {
     //         "재료 하나도 안 놓치는 완벽 소비자! 탄소 절감력 만렙, 실천력도 최고예요! 정말 대단해요!",
     // },
     // console.log(EFFS);
+
+    const [randomData, setRandomData] = useState<ConsumptionRateMessage | null>(null);
+
+    useEffect(() => {
+        // 랜덤 인덱스 뽑기
+        const randomIndex = Math.floor(Math.random() * consumptionRateMessages.length);
+        setRandomData(consumptionRateMessages[randomIndex]);
+    }, []);
+
+    if (!randomData) {
+        return <Wrapper>소비 유형 정보를 불러오는 중입니다...</Wrapper>;
+    }
+
+    const { typeName, message, imgSrc, mbti: randomMbti } = randomData;
+
     return (
         <Wrapper>
             <Subtitle>냉꼼이가 분석한 당신의 소비 유형</Subtitle>
             {/* <Level>Level {level}</Level> */}
             <Level>Level 1</Level>
-            {/* <NickName>{typeName}</NickName> */}
-            <NickName>냉장고 마스터형</NickName>
-            {/* <Code>{mbti}</Code> */}
-            <Code>EFFS</Code>
-            {/* <CharacterImg src={imgSrc} /> */}
-            <CharacterImg src={EFFS} />
-            {/* <Description>{message}</Description> */}
-            <Description>
+            <NickName>{typeName}</NickName>
+            {/* <NickName>냉장고 마스터형</NickName> */}
+            <Code>{mbti}</Code>
+            {/* <Code>EFFS</Code> */}
+            <CharacterImg src={imgSrc} />
+            {/* <CharacterImg src={EFFS} /> */}
+            <Description>{message}</Description>
+            {/* <Description>
                 재료 하나도 안 놓치는 완벽 소비자! 탄소 절감력 만렙, 실천력도 최고예요! 정말
                 대단해요!
-            </Description>
+            </Description> */}
         </Wrapper>
     );
 }
