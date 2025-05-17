@@ -48,7 +48,9 @@ export default function FoodList() {
                             icon={card.icon}
                             isSelected={card.id === currentId}
                             onClick={() => {
-                                navigate(`/register-food/${card.id}`, { state: card.name });
+                                navigate(`/register-food/${card.id}`, {
+                                    state: { name: card.name, icon: card.icon },
+                                });
                             }}
                         />
                     ))}

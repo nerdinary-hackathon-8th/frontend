@@ -4,7 +4,7 @@ const FoodBox = styled.div`
     width: 98px;
     height: 91px;
     border-radius: 10px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #eeeeee;
     background-color: white;
     display: flex;
     flex-direction: column;

@@ -7,26 +7,16 @@ const Page = styled.div`
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
     border-radius: 20px 20px 0 0;
     background-color: white;
 `;
 
-const ImageWrapper = styled.div`
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.2rem;
-`;
-
-const Img = styled.img`
-    width: 50px;
-    height: 50px;
+const Title = styled.p`
+    font-size: 15px;
+    font-weight: 700;
 `;
 
 const Input = styled.input`
@@ -46,19 +36,15 @@ const Input = styled.input`
 `;
 
 interface FoodItemProps {
-    imgSrc: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function FoodName({ imgSrc, value, onChange }: FoodItemProps) {
+export default function FoodName({ value, onChange }: FoodItemProps) {
     return (
         <Page>
             <Container>
-                <ImageWrapper>
-                    <Img src={imgSrc} />
-                </ImageWrapper>
-                {/* <Label>{label}</Label> */}
+                <Title>이름</Title>
                 <Input
                     placeholder="식품의 자세한 이름을 적어주세요 (ex. 대파)"
                     value={value}

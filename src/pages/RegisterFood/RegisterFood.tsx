@@ -21,22 +21,30 @@ const Divider = styled.div`
 `;
 
 const Header = styled.div`
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     position: relative;
-    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 220px;
     color: white;
     font-weight: 600;
     font-size: 20px;
-    line-height: 120px;
     text-align: center;
     user-select: none;
     background: linear-gradient(180deg, #9aeb70 0%, #54a731 100%);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
+const Title = styled.p`
+     margin-bottom: 4px; 
+`;
+const Image = styled.img`
+    margin-bottom: 0px;
+    width: 140px;
+`;
 const DateWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -60,17 +68,18 @@ const RegisterButton = styled.button`
 
 export default function RegisterFood() {
     const { id } = useParams<{ id: string }>();
-    console.log(id)
+    console.log(id);
     const navigate = useNavigate();
 
     const location = useLocation();
-    const name = location.state as string;
+    const { name, icon } = location.state as { name: string; icon: string };
+
     const [foodName, setFoodName] = useState<string>("");
     const [purchaseDate, setPurchaseDate] = useState<string>("");
     const [expiryDate, setExpiryDate] = useState<string>("");
     const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
 
-    console.log(foodName)
+    console.log(foodName);
 
     const handleStorageChange = (value: number) => {
         console.log("보관 id값:", value);
@@ -78,8 +87,11 @@ export default function RegisterFood() {
 
     return (
         <Page>
-            <Header>{name}</Header>
-            <FoodName imgSrc={FoodExample} onChange={(e) => setFoodName(e.target.value)} />
+            <Header>
+                <Title>{name}</Title>
+                <Image src={icon} />
+            </Header>
+            <FoodName onChange={(e) => setFoodName(e.target.value)} />
             <Divider />
             <DateWrapper>
                 <DateSelect

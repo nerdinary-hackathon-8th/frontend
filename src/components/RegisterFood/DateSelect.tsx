@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Calender from "../../assets/addfood/calendar.svg";
 
 const Container = styled.div`
     display: flex;
@@ -24,7 +25,6 @@ const PlaceHolder = styled.p`
 const InputWrapper = styled.div`
     display: flex;
     align-items: center;
-    gap: 8px;
     padding-bottom: 4px;
 `;
 
@@ -35,14 +35,22 @@ const DateInput = styled.input`
     font-size: 14px;
     text-align: center;
     width: 140px;
+
+    &::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
 `;
 
-const CalendarIcon = styled.span`
-    display: inline-block;
+const CalendarIcon = styled.img`
     width: 24px;
     height: 24px;
-    background: url("/icons/calendar.svg") no-repeat center center;
-    background-size: contain;
+    margin-right: -10px;
+    margin-bottom: 2px;
+    &::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
 `;
 
 const CheckboxWrapper = styled.label`
@@ -54,6 +62,14 @@ const CheckboxWrapper = styled.label`
     color: #444;
     cursor: pointer;
     user-select: none;
+`;
+
+const CalendarIcon2 = styled.span`
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url("/icons/calendar.svg") no-repeat center center;
+    background-size: contain;
 `;
 
 interface DateSelect {
@@ -77,6 +93,8 @@ export default function DateSelect({
     checkboxChecked = false,
     placeholder,
 }: DateSelect) {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const iconRef = useRef<HTMLImageElement>(null);
 
     const getTodayDateString = () => {
         const today = new Date();
@@ -97,14 +115,20 @@ export default function DateSelect({
             <Label>{label}</Label>
             <PlaceHolder>{placeholder}</PlaceHolder>
             <InputWrapper>
+                <CalendarIcon
+                    ref={iconRef}
+                    src={Calender}
+                    onClick={() => inputRef.current?.showPicker()}
+                />
                 <DateInput
+                    // ref={inputRef}
                     type="date"
                     min="1900-01-01"
                     max="2099-12-31"
                     value={dateValue}
                     onChange={(e) => onDateChange(e.target.value)}
+                    onClick={() => inputRef.current?.showPicker()}
                 />
-                <CalendarIcon />
             </InputWrapper>
             {showCheckbox && (
                 <CheckboxWrapper>
