@@ -4,19 +4,24 @@ import { useNavigate } from "react-router-dom";
 
 const Page = styled.div`
     display: flex;
-    height: 100vh;
-    padding-top: 50px;
+    height: 100%;
+    padding-top: 120px;
+    padding-left: 20px;
+    padding-right: 20px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+    background-color: #f8f8f8;
 `;
 const Image = styled.img`
-    width: 252px;
+    width: 430px;
+    margin-right: 80px;
 `;
 
 const Title = styled.p`
     font-weight: 700;
-    font-size: 28px;
+    font-size: 30px;
     margin: 0 0 12px 0;
     color: black;
 `;
@@ -26,20 +31,22 @@ const Highlight = styled.span`
 `;
 
 const Subtitle = styled.p`
+    padding-top: 10px;
     font-weight: 500;
     font-size: 16px;
     color: #6b6b6b;
-    margin: 0 0 24px 0;
+    margin: 0 0 -40px 0;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.4;
 `;
 
 const Button = styled.button`
-    width: 153px;
+    flex: 1;
+    width: 100%;
     padding: 15px;
-    margin-left: 10px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
+    letter-spacing: -1.5%;
     background-color: #00a400;
     border-radius: 10px;
     color: white;
@@ -49,8 +56,9 @@ const Button = styled.button`
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 20px;
-    margin-top: 110px;
+    width: 100%;
+    gap: 13px;
+    margin-top: 30px;
 `;
 
 export default function FinishRegisterFood() {
@@ -59,7 +67,7 @@ export default function FinishRegisterFood() {
     return (
         <Page>
             <Title>
-                음식이 <Highlight>추가</Highlight> 되었어요
+                식품이 <Highlight>추가</Highlight> 되었어요
             </Title>
             <Subtitle>
                 냉꼼이가 이제부터

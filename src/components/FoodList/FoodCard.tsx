@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
-import FoodExample from "../../assets/foodExample.png";
 
 const FoodBox = styled.div`
     width: 98px;
     height: 91px;
     border-radius: 10px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #eeeeee;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -16,16 +15,16 @@ const FoodBox = styled.div`
 `;
 
 const FoodImage = styled.img`
-    width: 45px;
-    height: 45px;
-    background-color: gray;
+    width: 60px;
+    height: 60px;
+    background-color: white;
     border-radius: 4px;
     object-fit: cover;
     margin-bottom: 8px;
 `;
 
 const FoodName = styled.p`
-    font-size: 13px;
+    font-size: 12px;
     color: black;
     margin: 0;
 `;
@@ -42,7 +41,7 @@ export default function FoodCard({ id, name, icon, isSelected, onClick }: FoodCa
     console.log(id, icon, isSelected);
     return (
         <FoodBox onClick={onClick}>
-            <FoodImage src={FoodExample} />
+            <FoodImage src={icon} />
             <FoodName>{name}</FoodName>
         </FoodBox>
     );

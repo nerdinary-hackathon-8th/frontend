@@ -1,42 +1,66 @@
 import styled from "@emotion/styled";
 import { useLocation, useParams } from "react-router-dom";
 import FoodName from "../../components/RegisterFood/FoodName";
-import FoodExample from "../../assets/foodExample.png";
 import { useState } from "react";
 import DateSelect from "../../components/RegisterFood/DateSelect";
 import StorageSelector from "../../components/RegisterFood/StorageSelector";
 import { useNavigate } from "react-router-dom";
+import BackButtonImg from "../../assets/back.png";
 
 const Page = styled.div`
     width: 100%;
     position: fixed;
+    overflow-y: auto;
     top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    overflow-y: auto;
 `;
 
 const Divider = styled.div`
     border-bottom: 1.5px solid #f2f2f2;
-    margin: 10px;
+    margin: 20px;
 `;
 
 const Header = styled.div`
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     position: relative;
-    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 270px;
     color: white;
     font-weight: 600;
     font-size: 20px;
-    line-height: 120px;
     text-align: center;
     user-select: none;
     background: linear-gradient(180deg, #9aeb70 0%, #54a731 100%);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
+const BackButton = styled.img`
+    position: absolute;
+    left: 20px;
+    height: 20px;
+`;
+
+const Title = styled.p`
+    position: absolute;
+    top: 20px;
+    color: white;
+    width: 100%;
+    font-size: px;
+    font-weight: 900;
+`;
+
+const Image = styled.img`
+    margin-bottom: 0px;
+    width: 240px;
+    margin-top: 80px;
+`;
 const DateWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -48,29 +72,30 @@ const DateWrapper = styled.div`
 const RegisterButton = styled.button`
     background-color: #00a400;
     font-size: 17px;
-    width: 320px;
-    margin-left: 20px;
-    margin-right: 20px;
+    font-weight: bold;
+    width: 100%;
     padding: 18px;
     border-radius: 10px;
     color: white;
     border: none;
     margin-top: 25px;
+    margin-bottom: 20px;
 `;
 
 export default function RegisterFood() {
     const { id } = useParams<{ id: string }>();
-    console.log(id)
+    console.log(id);
     const navigate = useNavigate();
 
     const location = useLocation();
-    const name = location.state as string;
+    const { name, icon } = location.state as { name: string; icon: string };
+
     const [foodName, setFoodName] = useState<string>("");
     const [purchaseDate, setPurchaseDate] = useState<string>("");
     const [expiryDate, setExpiryDate] = useState<string>("");
     const [isExpiryUnknown, setIsExpiryUnknown] = useState<boolean>(false);
 
-    console.log(foodName)
+    console.log(foodName);
 
     const handleStorageChange = (value: number) => {
         console.log("보관 id값:", value);
@@ -78,9 +103,15 @@ export default function RegisterFood() {
 
     return (
         <Page>
-            <Header>{name}</Header>
-            <FoodName imgSrc={FoodExample} onChange={(e) => setFoodName(e.target.value)} />
-            <Divider />
+            <Header>
+                <Title>
+                    <BackButton src={BackButtonImg} onClick={() => navigate(-1)} />
+                    {name}
+                </Title>
+                <Image src={icon} />
+            </Header>
+            <FoodName onChange={(e) => setFoodName(e.target.value)} />
+            <Divider style={{ marginTop: "20px", marginBottom:"10px" }} />
             <DateWrapper>
                 <DateSelect
                     label="구매일"
@@ -100,11 +131,14 @@ export default function RegisterFood() {
                     placeholder={"(구)유통기한을 입력해요."}
                 />
             </DateWrapper>
+            <Divider style={{ marginTop: "15px" }} />
             <StorageSelector onChange={handleStorageChange} />
             {/* TODO : 입력 완료 체크 */}
-            <RegisterButton onClick={() => navigate("/finish-register-food")}>
-                음식 추가
-            </RegisterButton>
+            <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "5px" }}>
+                <RegisterButton onClick={() => navigate("/finish-register-food")}>
+                    음식 추가
+                </RegisterButton>
+            </div>
         </Page>
     );
 }

@@ -1,24 +1,32 @@
 .page {
-    padding: 1rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
     position: fixed;
     background-color: white;
     border-radius: 20px 20px 0 0;
-    height: 596px;
+    /* height: 576px; */
+    top: 100px;
     bottom: 0;
-}
-
-.section {
-    margin-top: 1rem;
-}
-
-.gridView {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 4열 고정 */
-    gap: 1rem; /* 아이템 간격 */
-    justify-items: center; /* 아이템 중앙 정렬 */
 }
 
 .title {
     font-weight: 700;
     font-size: 15px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    padding-left: 20px;
+    padding-top: 28px;
+    margin-top: 0;
+}
+
+.section {
+}
+
+.gridView {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    padding: 20px;
+    gap: 13px 13px;
+    justify-content: space-around;
 }
