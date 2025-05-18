@@ -68,7 +68,7 @@ export default function FridgeManagement() {
     const [, setLoading] = useState(true);
 
     const location = useLocation();
-    const text = location.state as { text: string };
+    const text = location.state as string;
 
     useEffect(() => {
         async function fetchMyMbti() {
@@ -84,7 +84,7 @@ export default function FridgeManagement() {
         }
         fetchMyMbti();
     }, []);
-    console.log(data);
+
     return (
         <Page>
             <Header>
@@ -95,7 +95,7 @@ export default function FridgeManagement() {
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
             <ExpiredProduct count={data?.nearExpiredCount || 0} />
             <Divider style={{ marginTop: "13px", marginBottom: "13px" }} />
-            <Mission text={text.text} />
+            <Mission text={text} />
             <div style={{ marginTop: "13px", marginBottom: "13px" }}></div>
             <SpendType level={data?.level || 0} mbti={data?.foodBTI || ""} />
             <TextBox>
